@@ -21,19 +21,7 @@
 
     <div class="soldHomes-container content-item">
       <h1>Latest Sales</h2>
-      <div class="soldHomes-grid">
-        {{#each soldHomes}}
-          <div class="listing-item">
-            <img src="{{this.image}}" alt="House" class="listing-image"/>
-            <div class="listing-info">
-              <h2 class="listing-title">{{this.title}}</h2>
-              <p class="listing-price">Sold for ${{this.price}}</p>
-              <p>Bed: {{this.beds}} | Bath: {{this.baths}}</p>
-            </div>
-            <a href="/listing/{{this.id}}" class="details-link">View Details</a>
-          </div>
-        {{/each}}
-      </div>
+      {{> soldHomesGrid}}
       <a href="/soldHomes" class="view-more">View More Sales</a>
     </div>
   </div>
