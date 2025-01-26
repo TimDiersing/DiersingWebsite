@@ -1,0 +1,43 @@
+<h1>Previous Sales</h1>
+<div class="soldHomes-container">
+  {{#each soldHomes}}
+    <a href="/listing/{{this.id}}" class="listing-as-link">
+    <div class="listing-item">
+      <img src="{{this.image}}" alt="House" class="listing-image"/>
+      <div class="listing-info">
+        <h2 class="listing-title">{{this.title}}</h2>
+        <p class="listing-price">Sold for ${{this.price}}</p>
+        <p>Bed: {{this.beds}} | Bath: {{this.baths}}</p>
+      </div>
+      <a href="/listing/{{this.id}}" class="details-link">View Details</a>
+      <button onclick="confirmAction()">Delete</button>
+    <script>
+        async function confirmAction() {
+            const userConfirmed = confirm("Are you sure you want to delete this?");
+            if (userConfirmed) {
+                alert("Action confirmed!");
+                try {
+                await fetch("/admin/listing/{{this.id}}", {method: 'DELETE'});
+                } catch (err) {
+                  console.error(err);
+                }            
+            } else {
+                alert("Action canceled.");
+            }
+        }
+    </script>
+    </div>
+    </a>
+  {{/each}}
+</div>
+
+<h1>Add Listing</h1>
+<form action="/admin/add-listing" method="POST">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" required>
+  <label for="price">Price:</label>
+  <input type="number" id="price" name="price" required>
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" required></textarea>
+  <button type="submit">Add Listing</button>
+</form>

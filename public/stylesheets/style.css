@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', 'URW Palladio L', 'serif';
+  line-height: 1.6;
+  word-spacing: 1.4px;
+  background-color: #f2f1ec;
+  color: #15232a;
+}
+
+.hero {
+  /*background: url('/videos/testVideo.mp4') no-repeat center center;
+  background-size: cover;*/
+  width: 100%;
+  height: 40rem;
+  color: #f7f7f7;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  z-index:-100;
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  text-shadow: 5px 5px 5px #333;
+  margin: 15rem 0 2rem 0;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  background-color: #264653;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #2a9d8f;
+}
+
+.content{
+  display: flex;
+}
+
+.content-item {
+  border: .1rem solid #289dd2;
+  border-radius: .4rem 0;
+  box-shadow: 5px 5px 6px;
+}
+
+.content h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.left-content {
+  width: 75%;
+}
+
+.bio {
+  margin: 2rem 5rem;
+  padding: 1% 2%;
+  background-color: #f2f1ec;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bio-text {
+  width: 60%;
+}
+
+.bio img {
+  height: 150px;
+  width: auto;
+}
+
+.soldHomes-container {
+  margin: 2rem 5rem;
+  padding: 1% 2%;
+  background-color: #f2f1ec;
+}
+
+.soldHomes-container h1 {
+  margin: 1% 5%;
+}
+
+.soldHomes-grid {
+  margin: 1% 1%;
+  padding: 0;
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: repeat(auto-fill, 400px);
+  column-gap: 1%;
+  row-gap: 20px;
+}
+
+.view-more {
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #2a9d8f;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  width: fit-content;
+  transition: background-color 0.3s;
+}
+
+.view-more:hover {
+  background-color: #264653;
+}
+
+.video-bar {
+  margin: 2rem;
+  padding: 1%;
+  background-color: #f2f1ec;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
