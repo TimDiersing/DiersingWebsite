@@ -2,6 +2,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const dbName = 'realestate.db';
+require('dotenv').config();
 
 // This creates/opens the SQLite DB in the file system. 
 // If the file does not exist, it will be created automatically.
@@ -80,7 +81,7 @@ db.get(checkAndInsertSampleData, (err, row) => {
 
 async function createAdmin() {
   const username = 'admin';
-  const password = 'admin1';
+  const password = process.env.ADMIN_PASS;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   db.run(

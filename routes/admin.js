@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bcrypt = require('bcrypt');
 const db = require('../db');
 const router = express.Router();
@@ -14,7 +15,10 @@ function isAdmin(req, res, next) {
 
 // Admin login page
 router.get('/login', (req, res) => {
-  res.render('adminLogin');
+  res.render('adminLogin', {
+    pageTitle: 'Admin Login',
+    layout: 'admin',
+  });
 });
   
 router.post('/login', async (req, res) => {
@@ -59,7 +63,9 @@ router.get('/dashboard', isAdmin, (req, res) => {
     }
 
     res.render('adminDashboard', {
-      soldHomes: rows
+      pageTitle: 'Admin Dashboard',
+      soldHomes: rows,
+      layout: 'admin',
     });
   });
 });

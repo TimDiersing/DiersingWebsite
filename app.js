@@ -7,13 +7,19 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const sqlite3 = require('sqlite3');
 const favicon = require('serve-favicon');
-
+require('dotenv').config();
+ 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Set up Handlebars
-app.engine('handlebars', engine());
+app.engine('handlebars', engine({
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, 'views', 'layouts'),
+}));
+
 app.set('view engine', 'handlebars');
+// app.set('veiws', path.join(__dirname, 'veiws'));
 
 // MIDDLEWEAR 
 // Serve static files (CSS, images)
@@ -32,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.use(session({
-  secret: 'woei24dskfj3049ts',
+  secret: process.env.DB_SECRET,
   resave: false,
   saveUninitialized: true,
 }));
