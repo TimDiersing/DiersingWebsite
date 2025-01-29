@@ -50,6 +50,35 @@ db.run(`CREATE TABLE IF NOT EXISTS admins (
   console.log('admin table initialized or already exists.');
 });
 
+// db.run(`CREATE TABLE IF NOT EXISTS testimonials (
+//   id INTEGER PRIMARY KEY AUTOINCREMENT,
+//   rating INTEGER NOT NULL,
+//   reviewText TEXT NOT NULL,
+//   names TEXT NOT NULL)`, (err) => {
+// if (err) {
+//   return console.error('Error creating testimonials table:', err.message);
+// } else {
+//   console.log('admin table initialized or already exists.');
+// }
+// });
+
+// db.get(`SELECT COUNT(*) as count FROM testimonials`, (err, row) => {
+//   if (err) {
+//     return console.error(err.message);
+//   }
+
+//   if (row.count === 0) {
+//     db.run(`INSERT INTO testimonials (rating, reviewText, names) VALUES\
+//       (5, 'Bob Diersing is the best realtor I've ever met. Our past two deals are record-setting deals, worth over $5 million.\
+//             Bob consistently goes above and beyond to get the deal done. Thank you again, Bob, for helping me realize all of \
+//             my goals with real estate.', 'William & Marina Keck' )`, (err) => {
+//               if (err) {
+//                 return console.error(err);
+//               }
+//             })
+//   }
+// });
+
 // Optional: Insert sample listings if the table is empty
 const checkAndInsertSampleData = `
   SELECT COUNT(*) as count FROM soldHomes

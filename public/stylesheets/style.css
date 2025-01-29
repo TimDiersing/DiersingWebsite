@@ -1,23 +1,43 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Georgia', 'URW Palladio L', 'serif';
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   line-height: 1.6;
   word-spacing: 1.4px;
-  background-color: #f2f1ec;
+  background-color: #d7d6d1;
   color: #15232a;
 }
+/* ________FONT CLASSES________ */
 
+.italiana-regular {
+  font-family: "Italiana", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.playfair-regular {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ___________________________ */
+
+
+/* ________HERO SECTION________ */
 .hero {
-  /*background: url('/videos/testVideo.mp4') no-repeat center center;
-  background-size: cover;*/
   width: 100%;
-  height: 40rem;
-  color: #f7f7f7;
-  font-size: 1.5rem;
+  height: 100vh;
+  color: #f2f1ec;
+  font-size: 1rem;
+  text-shadow: 3px 3px 3px #15232a;
   text-align: center;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0;
 }
 
 .hero video {
@@ -30,67 +50,52 @@ body {
   z-index:-100;
 }
 
-.hero h1 {
-  font-size: 2.5em;
-  text-shadow: 5px 5px 5px #333;
-  margin: 15rem 0 2rem 0;
+.hero-header {
+  font-size: 5em;
+  padding: 15rem 0 0 0;
+  margin: 0;
 }
 
-.hero p {
-  font-size: 1.2em;
-  margin-bottom: 20px;
+.hero-subheader {
+  font-size: 1.8em; 
+  margin: 0;
 }
+/* ___________________________ */
 
-.cta-button {
-  background-color: #264653;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1em;
-  transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-  background-color: #2a9d8f;
-}
-
-.content{
-  display: flex;
-}
-
-.content-item {
-  border: .1rem solid #289dd2;
-  border-radius: .4rem 0;
-  box-shadow: 5px 5px 6px;
-}
-
-.content h1 {
-  font-size: 3rem;
-  font-weight: 800;
-}
-
-.left-content {
-  width: 75%;
-}
-
-.bio {
-  margin: 2rem 5rem;
-  padding: 1% 2%;
+/* ________BIO SECTION________ */
+.bio-section {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 80vh;
   background-color: #f2f1ec;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+}
+
+.bio-card {
+  width: 80%;
+  height: 70%;
+  position: relative;
+  top: 15%;
+  left: 10%;
+  background-color: #f2f1ec;
 }
 
 .bio-text {
-  width: 60%;
+  width: 40%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 5%;
 }
 
-.bio img {
-  height: 150px;
-  width: auto;
+.bio-img {
+  position: absolute;
+  right: 10%;
+  top: 5%;
+  width: 30%;
+  height: auto;
 }
+/* ____________________________ */
 
 .soldHomes-container {
   margin: 2rem 5rem;
@@ -127,15 +132,4 @@ body {
 
 .view-more:hover {
   background-color: #264653;
-}
-
-.video-bar {
-  margin: 2rem;
-  padding: 1%;
-  background-color: #f2f1ec;
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 }

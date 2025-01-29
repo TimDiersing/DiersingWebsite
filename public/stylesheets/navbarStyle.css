@@ -1,5 +1,13 @@
-/* Navbar Styling */
 .navbar {
+  background-color: #365b6d;
+  margin: 0;
+  padding: 0 5% 0 2%;
+  height: 4rem;
+  width: auto;
+  text-shadow: 2px 2px 4px black;
+}
+
+.navbar-floating {
   background-color: #365b6d;
   margin: 0;
   padding: 0 5% 0 2%;
@@ -7,7 +15,7 @@
   width: 88%;
   top: 5rem;
   left: 5%;
-  text-shadow: 2px 2px 4px black;
+  /*text-shadow: 2px 2px 4px black;*/
   position: absolute;
 }
 

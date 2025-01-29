@@ -1,35 +1,42 @@
+{{> floatingNavbar}}
+
 <div class="hero">
   <video autoplay muted loop>
-    <source src="videos/testVideo.mp4" type="video/mp4">
+    <source src="videos/danaDrone2.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <h1>{{heroText}}</h1>
-  <a href="/soldHomes" class="cta-button">Browse Listings</a>
+  <h1 class="hero-header italiana-regular">Start Your Real Estate Journey</h1>
+  <h3 class="hero-subheader italiana-regular">Let me and my experiance help you</h3>
 </div>
 
-<div class="content">
-  <div class="left-content">
-    <div class="bio content-item">
-      <div class="bio-text">
-        <p>
-          Born and raised in Orange County, Bob has sold real estate in the area for over 29 years. With a background in real estate appraisal, he brings exceptional expertise to property valuation. Bob's commitment to excellence ensures top-notch service tailored to your needs.
-        </p>
-        <a href="/profile" class="learn-more">Learn More About Bob</a>
-      </div>
-      <img src="images/bioImage.png" alt="bioImage">
+<div class="bio-section">
+  <div class="bio-card">
+    <div class="bio-text">
+      <p>
+        Born and raised right here in Orange County and have sold real estate in the area for over 29 years. 
+        Prior to that, I owned and operated <q>Certified Pacific</q> a real estate appraisal firm. My appraisal 
+        background gives me an edge on the valuation of your home. The secret to my success is that I put 
+        your wants and needs in front of mine. I utilize my experience and foresight to proactively address 
+        details before they become a problem. My commitment to excellence in customer service as well as my 
+        depth of experience in the real estate industry will provide you with all your real estate needs.
+      </p>
+      <p>
+        Let me get you the Results you want and deserve, call me.
+      </p>
+      <a href="tel:{{phone}}">{{phone}}</a>
+      
+      <!--  OTHER BIO Born and raised in Orange County, Bob has sold real estate in the area for over 29 years. With a background in real estate appraisal, he brings exceptional expertise to property valuation. Bob's commitment to excellence ensures top-notch service tailored to your needs. -->
+      
+      <a href="/profile" class="learn-more">Learn More About Bob</a>
     </div>
-
-    <div class="soldHomes-container content-item">
-      <h1>Latest Sales</h2>
-      {{> soldHomesGrid}}
-      <a href="/soldHomes" class="view-more">View More Sales</a>
-    </div>
+    <img class="bio-img" src="images/bioImage.png" alt="bioImage">
   </div>
+</div>
 
-  <aside class="video-bar content-item">
-    {{> videoBar}}
-  </aside>
-
+<div class="soldHomes-container content-item">
+  <h1>Previous Success Stories</h2>
+  {{> soldHomesGrid}}
+  <a href="/soldHomes" class="view-more">View More Sales</a>
 </div>
 
 <li><a href="/admin/login">Admin Login</a></li>
