@@ -10,7 +10,6 @@
 </div>
 
 <div class="bio-section">
-  <div class="bio-card">
     <div class="bio-text">
       <p>
         Born and raised right here in Orange County and have sold real estate in the area for over 29 years. 
@@ -23,14 +22,16 @@
       <p>
         Let me get you the Results you want and deserve, call me.
       </p>
-      <a href="tel:{{phone}}">{{phone}}</a>
       
       <!--  OTHER BIO Born and raised in Orange County, Bob has sold real estate in the area for over 29 years. With a background in real estate appraisal, he brings exceptional expertise to property valuation. Bob's commitment to excellence ensures top-notch service tailored to your needs. -->
       
-      <a href="/profile" class="learn-more">Learn More About Bob</a>
+      <a class="bio-button" href="/profile">Learn more about Bob</a>
     </div>
-    <img class="bio-img" src="images/bioImage.png" alt="bioImage">
-  </div>
+    <aside class="bio-contact-card">
+      <img class="bio-img" src="images/bioImage.png" alt="bioImage">
+      <p class="bio-phone">Phone: <a class="roboto-mono-number" href="tel:{{phone}}">{{phone}}</a></p>
+      <p class="bio-email">Email: <a href="mailto:{{email}}">{{email}}</a></p>
+    </aside>
 </div>
 
 <div class="soldHomes-container content-item">
@@ -38,7 +39,3 @@
   {{> soldHomesGrid}}
   <a href="/soldHomes" class="view-more">View More Sales</a>
 </div>
-
-<li><a href="/admin/login">Admin Login</a></li>
-
-

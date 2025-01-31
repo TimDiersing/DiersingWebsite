@@ -25,6 +25,13 @@ body {
   font-style: normal;
 }
 
+.roboto-mono-number {
+  font-family: "Roboto Mono", serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
 /* ___________________________ */
 
 
@@ -33,31 +40,33 @@ body {
   width: 100%;
   height: 100vh;
   color: #f2f1ec;
-  font-size: 1rem;
+  font-size: 16px;
   text-shadow: 3px 3px 3px #15232a;
   text-align: center;
+  position: static;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .hero video {
   position: absolute;
+  object-fit: cover;
   top: 0;
   left: 0;
-  margin: 0;
-  padding: 0;
   width: 100%;
-  z-index:-100;
+  height: 100%;
+  z-index: -100;
 }
 
 .hero-header {
-  font-size: 5em;
+  font-size: 60px;
   padding: 15rem 0 0 0;
   margin: 0;
 }
 
 .hero-subheader {
-  font-size: 1.8em; 
+  font-size: 20px; 
   margin: 0;
 }
 /* ___________________________ */
@@ -66,35 +75,55 @@ body {
 .bio-section {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: auto;
   height: 80vh;
   background-color: #f2f1ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.bio-card {
-  width: 80%;
-  height: 70%;
-  position: relative;
-  top: 15%;
-  left: 10%;
-  background-color: #f2f1ec;
+.bio-section a {
+  text-decoration: none;
+  color: #15232a;
 }
 
 .bio-text {
-  width: 40%;
+  margin: 50px; 
+  flex-basis: 40%;
+}
+
+.bio-text a {
+  background-color: #264653;
+  padding: 8px 12px;
+  border: .1rem solid #15232a;
+  color: #f2f1ec;
+  font-weight: 600;
+}
+
+
+.bio-contact-card {
+  background-color: #f7f7f7;
+  box-shadow: 3px 3px 3px #15232a;
   height: 80%;
-  position: absolute;
-  top: 10%;
-  left: 5%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }
 
 .bio-img {
-  position: absolute;
-  right: 10%;
-  top: 5%;
-  width: 30%;
-  height: auto;
+  width: 380px;
 }
+
+.bio-contact-card p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+
 /* ____________________________ */
 
 .soldHomes-container {
@@ -133,3 +162,50 @@ body {
 .view-more:hover {
   background-color: #264653;
 }
+
+/* _______MEDIA QUEREYS_____*/
+
+@media (max-width: 1024px) {
+  .hero-header {
+    font-size: 60px;
+    padding: 15rem 0 0 0;
+  }
+  .hero-subheader {
+    font-size: 20px; 
+  }
+
+  .bio-text{
+    font-size: 12px;
+  }
+  .bio-contact-card p {
+    font-size: 12px;
+  }
+}
+
+@media(max-width: 768px) {
+  .hero-header {
+    font-size: 40px;
+    padding: 200px 0 0 0;
+  }
+
+  .hero-subheader {
+    font-size: 15px; 
+  }
+
+  .bio-text{
+    font-size: 8px;
+  }
+}
+
+@media(max-width: 480px) {
+  .hero-header {
+    font-size: 40px;
+    padding: 100px 0 0 0;
+  }
+
+  .hero-subheader {
+    font-size: 15px; 
+  }
+  
+}
+/* _________________________*/
