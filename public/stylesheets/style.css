@@ -60,15 +60,16 @@ body {
 }
 
 .hero-header {
-  font-size: 60px;
+  font-size: 80px;
   padding: 15rem 0 0 0;
   margin: 0;
 }
 
 .hero-subheader {
-  font-size: 20px; 
+  font-size: 30px; 
   margin: 0;
 }
+
 /* ___________________________ */
 
 /* ________BIO SECTION________ */
@@ -80,7 +81,7 @@ body {
   background-color: #f2f1ec;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .bio-section a {
@@ -89,7 +90,6 @@ body {
 }
 
 .bio-text {
-  margin: 50px; 
   flex-basis: 40%;
 }
 
@@ -105,7 +105,7 @@ body {
 .bio-contact-card {
   background-color: #f7f7f7;
   box-shadow: 3px 3px 3px #15232a;
-  height: 80%;
+  height: 450px;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -164,6 +164,9 @@ body {
 }
 
 /* _______MEDIA QUEREYS_____*/
+@media (max-width: 2000px) {
+
+}
 
 @media (max-width: 1024px) {
   .hero-header {
