@@ -110,7 +110,7 @@ db.get(checkAndInsertSampleData, (err, row) => {
 
 async function createAdmin() {
   const username = 'admin';
-  const password = admin1;//process.env.ADMIN_PASS;
+  const password = 'admin1';//process.env.ADMIN_PASS;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   db.run(
