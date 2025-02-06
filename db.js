@@ -99,7 +99,7 @@ db.get(checkAndInsertSampleData, (err, row) => {
         ('Off Market Sale', 'Single Family Residence', '15 Via Timon', 'San Clemente', 'CA', 92673, 1645000, 4, 3, 2872, 'discription', '/images/viaTimonHouse.jpg'),
         ('I sold an out of area listing at a higher price that what local agents brought to seller', 'Single Family Residence', '1915 Via Coronel', 'Palos Verdes Estates', 'CA', 90274, 3950000, 5, 4, 3189, 'discription', '/images/viaCoronelHouse.jpg'),
         ('Record breaking price for tract', 'Single Family Residence', '28951 Calle Susanna', 'San Juan Capistrano', 'CA', 92675, 2100000, 5, 4, 3139, 'discription', '/images/calleSusannaHouse.jpg'),
-        ('Record breaking price with no one coming close', 'Condominium', '405 Avenida Granada', 'San Clemente', 'CA', 92672, 2530000, 2, 2, 1282, 'discription', '/images/AvenidaHouse.jpg'),
+        ('Record breaking price with no one coming close', 'Condominium', '405 Avenida Granada', 'San Clemente', 'CA', 92672, 2530000, 2, 2, 1282, 'discription', '/images/avenidaHouse.jpg'),
         ('I got my buyers in front of the other offers to win them their one of a kind forever home', 'Single Family Residence', '2001 Via Teca', 'San Clemente', 'CA', 92673, 3500000, 4, 5, 5456, 'discription', '/images/viaTecaHouse.jpg');
     `;
     db.run(insertSampleQuery, (err) => {
