@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.use(session({
-  secret: process.env.DB_SECRET,
+  secret: 'sdlkjghskdfh', //process.env.DB_SECRET,
   resave: false,
   saveUninitialized: true,
 }));
