@@ -122,8 +122,8 @@ app.get('/contact', (req, res) => {
   });
 }); 
 
-const adminRouter = require('./routes/admin');
-app.use('/admin', adminRouter);
+//const adminRouter = require('./routes/admin');
+//app.use('/admin', adminRouter);
 
 // Start the server
 app.listen(PORT, () => {
