@@ -126,19 +126,19 @@ body {
 
 /* ____________________________ */
 
-.soldHomes-container {
-  margin: 2rem 5rem;
-  padding: 1% 2%;
-  background-color: #f2f1ec;
+.soldHomes-section {
+  background-color: #f7f7f7;
+  padding: 1vh 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-.soldHomes-container h1 {
-  margin: 1% 5%;
-}
-
 .soldHomes-grid {
-  margin: 1% 1%;
-  padding: 0;
+  margin: 0;
+  padding: 1.75% 1%;
+  width: 90%;
+  background-color: #6c9286; 
+  border-radius: 15px;
   display: grid;
   justify-content: space-around;
   grid-template-columns: repeat(auto-fill, 400px);
@@ -151,7 +151,7 @@ body {
   text-align: center;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #2a9d8f;
+  background-color: #264653;
   color: #fff;
   border-radius: 5px;
   text-decoration: none;
@@ -160,7 +160,7 @@ body {
 }
 
 .view-more:hover {
-  background-color: #264653;
+  background-color: #2a9d8f;
 }
 
 /* _______MEDIA QUEREYS_____*/

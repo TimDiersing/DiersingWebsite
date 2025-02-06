@@ -4,7 +4,7 @@ const path = require('path');
 const { engine } = require('express-handlebars');
 const db = require('./db');
 const bcrypt = require('bcrypt');
-const session = require('express-session');
+// const session = require('express-session');
 const sqlite3 = require('sqlite3');
 const favicon = require('serve-favicon');
 require('dotenv').config();
@@ -37,11 +37,13 @@ app.use((req, res, next) => {
   next();
 });
 
+/*
 app.use(session({
   secret: 'sdlkjghskdfh', //process.env.DB_SECRET,
   resave: false,
   saveUninitialized: true,
 }));
+*/
 
 // ROUTES
 // Home route

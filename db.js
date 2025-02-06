@@ -40,6 +40,7 @@ db.run(createTableQuery, (err) => {
   console.log('soldHomes table initialized or already exists.');
 });
 
+/*
 db.run(`CREATE TABLE IF NOT EXISTS admins (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT NOT NULL UNIQUE,
@@ -50,34 +51,35 @@ db.run(`CREATE TABLE IF NOT EXISTS admins (
   console.log('admin table initialized or already exists.');
 });
 
-// db.run(`CREATE TABLE IF NOT EXISTS testimonials (
-//   id INTEGER PRIMARY KEY AUTOINCREMENT,
-//   rating INTEGER NOT NULL,
-//   reviewText TEXT NOT NULL,
-//   names TEXT NOT NULL)`, (err) => {
-// if (err) {
-//   return console.error('Error creating testimonials table:', err.message);
-// } else {
-//   console.log('admin table initialized or already exists.');
-// }
-// });
+db.run(`CREATE TABLE IF NOT EXISTS testimonials (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  rating INTEGER NOT NULL,
+  reviewText TEXT NOT NULL,
+  names TEXT NOT NULL)`, (err) => {
+if (err) {
+  return console.error('Error creating testimonials table:', err.message);
+} else {
+  console.log('admin table initialized or already exists.');
+}
+});
 
-// db.get(`SELECT COUNT(*) as count FROM testimonials`, (err, row) => {
-//   if (err) {
-//     return console.error(err.message);
-//   }
+db.get(`SELECT COUNT(*) as count FROM testimonials`, (err, row) => {
+  if (err) {
+    return console.error(err.message);
+  }
 
-//   if (row.count === 0) {
-//     db.run(`INSERT INTO testimonials (rating, reviewText, names) VALUES\
-//       (5, 'Bob Diersing is the best realtor I've ever met. Our past two deals are record-setting deals, worth over $5 million.\
-//             Bob consistently goes above and beyond to get the deal done. Thank you again, Bob, for helping me realize all of \
-//             my goals with real estate.', 'William & Marina Keck' )`, (err) => {
-//               if (err) {
-//                 return console.error(err);
-//               }
-//             })
-//   }
-// });
+  if (row.count === 0) {
+    db.run(`INSERT INTO testimonials (rating, reviewText, names) VALUES\
+      (5, 'Bob Diersing is the best realtor I've ever met. Our past two deals are record-setting deals, worth over $5 million.\
+            Bob consistently goes above and beyond to get the deal done. Thank you again, Bob, for helping me realize all of \
+            my goals with real estate.', 'William & Marina Keck' )`, (err) => {
+              if (err) {
+                return console.error(err);
+              }
+            })
+  }
+});
+*/
 
 // Optional: Insert sample listings if the table is empty
 const checkAndInsertSampleData = `
@@ -93,11 +95,12 @@ db.get(checkAndInsertSampleData, (err, row) => {
     const insertSampleQuery = `
       INSERT INTO soldHomes (title, type, address, city, state, zip, price, beds, baths, sqft, description, image)
       VALUES
+        ('I sold $451,500 over asking, still the highest sale in highland light village', 'Single Family Residence', '2119 Via Aguila', 'San Clemente', 'CA', 92673, 2451500, 5, 3, 2625, 'discription', '/images/viaAguliaHouse.jpg'),
         ('Off Market Sale', 'Single Family Residence', '15 Via Timon', 'San Clemente', 'CA', 92673, 1645000, 4, 3, 2872, 'discription', '/images/viaTimonHouse.jpg'),
-        ('title', 'Single Family Residence', '1915 Via Coronel', 'Palos Verdes Estates', 'CA', 90274, 3950000, 5, 4, 3189, 'discription', '/images/viaCoronelHouse.jpg'),
-        ('Title', 'Single Family Residence', '28951 Calle Susanna', 'San Juan Capistrano', 'CA', 92675, 2100000, 5, 4, 3139, 'discription', '/images/calleSusannaHouse.jpg'),
-        ('Title', 'Condominium', '405 Avenida Granada', 'San Clemente', 'CA', 92672, 2530000, 2, 2, 1282, 'discription', '/images/AvenidaHouse.jpg'),
-        ('Title', 'Single Family Residence', '2001 Via Teca', 'San Clemente', 'CA', 92673, 3500000, 4, 5, 5456, 'discription', '/images/viaTecaHouse.jpg');
+        ('I sold an out of area listing at a higher price that what local agents brought to seller', 'Single Family Residence', '1915 Via Coronel', 'Palos Verdes Estates', 'CA', 90274, 3950000, 5, 4, 3189, 'discription', '/images/viaCoronelHouse.jpg'),
+        ('Record breaking price for tract', 'Single Family Residence', '28951 Calle Susanna', 'San Juan Capistrano', 'CA', 92675, 2100000, 5, 4, 3139, 'discription', '/images/calleSusannaHouse.jpg'),
+        ('Record breaking price with no one coming close', 'Condominium', '405 Avenida Granada', 'San Clemente', 'CA', 92672, 2530000, 2, 2, 1282, 'discription', '/images/AvenidaHouse.jpg'),
+        ('I got my buyers in front of the other offers to win them their one of a kind forever home', 'Single Family Residence', '2001 Via Teca', 'San Clemente', 'CA', 92673, 3500000, 4, 5, 5456, 'discription', '/images/viaTecaHouse.jpg');
     `;
     db.run(insertSampleQuery, (err) => {
       if (err) {
@@ -108,6 +111,7 @@ db.get(checkAndInsertSampleData, (err, row) => {
   }
 });
 
+/*
 async function createAdmin() {
   const username = 'admin';
   const password = 'admin1';//process.env.ADMIN_PASS;
@@ -142,6 +146,7 @@ function getAdmin(username) {
     });
   });
 }
+*/
 
 // Function to add a listing
 function addListing(listing) {
@@ -163,4 +168,4 @@ function addListing(listing) {
   });
 }
 
-module.exports = {db, getAdmin, addListing };
+module.exports = {db, addListing};
