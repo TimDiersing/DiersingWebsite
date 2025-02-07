@@ -1,7 +1,7 @@
 // db.js
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
-const dbName = 'realestate.db';
+const dbName = 'db.db';
 require('dotenv').config();
 
 // This creates/opens the SQLite DB in the file system. 
