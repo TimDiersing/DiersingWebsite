@@ -177,8 +177,12 @@ body {
     font-size: 20px; 
   }
 
+  .bio-section {
+    flex-direction: column;
+  }
   .bio-text{
     font-size: 12px;
+    flex-basis: auto;
   }
   .bio-contact-card p {
     font-size: 12px;
