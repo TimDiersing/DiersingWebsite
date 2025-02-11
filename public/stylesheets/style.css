@@ -122,10 +122,10 @@ body {
   font-weight: 500;
   margin: 8px 0;
 }
-
-
 /* ____________________________ */
 
+
+/* ______SOLD HOMES SECTION______ */
 .soldHomes-section {
   background-color: #f7f7f7;
   padding: 1vh 1vw;
@@ -162,10 +162,11 @@ body {
 .view-more:hover {
   background-color: #2a9d8f;
 }
+/* ______________________________ */
 
 /* _______MEDIA QUEREYS_____*/
 @media (max-width: 2000px) {
-
+  
 }
 
 @media (max-width: 1024px) {

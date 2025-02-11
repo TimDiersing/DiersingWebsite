@@ -1,9 +1,19 @@
 // db.js
-const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
-const dbName = 'db.db';
 require('dotenv').config();
+const { Pool } = require('pg');
 
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT
+});
+
+module.exports = pool;
+
+/*
 // This creates/opens the SQLite DB in the file system. 
 // If the file does not exist, it will be created automatically.
 const db = new sqlite3.Database(dbName, (err) => {
@@ -40,7 +50,7 @@ db.run(createTableQuery, (err) => {
   console.log('soldHomes table initialized or already exists.');
 });
 
-/*
+
 db.run(`CREATE TABLE IF NOT EXISTS admins (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT NOT NULL UNIQUE,
@@ -79,7 +89,7 @@ db.get(`SELECT COUNT(*) as count FROM testimonials`, (err, row) => {
             })
   }
 });
-*/
+
 
 // Optional: Insert sample listings if the table is empty
 const checkAndInsertSampleData = `
@@ -111,9 +121,8 @@ db.get(checkAndInsertSampleData, (err, row) => {
   }
 });
 
-/*
-async function createAdmin() {
-  const username = 'admin';
+
+async function createAdmin() {2
   const password = 'admin1';//process.env.ADMIN_PASS;
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -146,7 +155,7 @@ function getAdmin(username) {
     });
   });
 }
-*/
+
 
 // Function to add a listing
 function addListing(listing) {
@@ -169,3 +178,4 @@ function addListing(listing) {
 }
 
 module.exports = {db, addListing};
+*/

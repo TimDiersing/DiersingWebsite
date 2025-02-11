@@ -2,11 +2,9 @@
 const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
-const db = require('./db');
+const pool = require('./db');
 const bcrypt = require('bcrypt');
 // const session = require('express-session');
-const sqlite3 = require('sqlite3');
-const favicon = require('serve-favicon');
 require('dotenv').config();
  
 const app = express();
@@ -47,60 +45,72 @@ app.use(session({
 
 // ROUTES
 // Home route
-app.get('/', (req, res) => {
-  const query = `SELECT * FROM soldHomes ORDER BY id DESC LIMIT 4`;
+app.get('/', async (req, res) => {
+  let client;
+  try {
+    client = await pool.connect();
+    const soldHomes = await client.query('SELECT * FROM soldHomes');
+    res.render('home', {
+      pageTitle: 'Bob Diesing',
+      heroText: 'Find Your Perfect Home',
+      soldHomes: soldHomes.rows
+    });
 
-  db.db.all(query, [], (err, rows) => {
-    if (err) {
-      console.error('Error fetching sold homes:', err.message);
-      return res.status(500).send('An error occurred while fetching sold homes.');
-    } else {
-      res.render('home', {
-        pageTitle: 'Bob Diesing',
-        heroText: 'Find Your Perfect Home',
-        soldHomes: rows
-      });
+  } catch (err) {
+    console.error('Error fecthing sold homes:', err);
+    return res.status(500).json({ error: 'Database error' });
+
+  } finally {
+    if (client) {
+      client.release();
     }
-  });
-
+  }
 });
 
 // Sold Homes route
-app.get('/soldHomes', (req, res) => {
-  const query = `SELECT * FROM soldHomes`;
-
-  db.db.all(query, [], (err, rows) => {
-    if (err) {
-      console.error('Error fetching sold homes:', err.message);
-      return res.status(500).send('An error occurred while fetching sold homes.');
-    }
-
+app.get('/soldHomes', async (req, res) => {
+  let client;
+  try {
+    client = await pool.connect();
+    const soldHomes = await client.query('SELECT * FROM soldHomes');
     res.render('soldHomes', {
-      pageTitle: 'Sold Homes - Bob Diersing',
-      soldHomes: rows
+      pageTitle: 'soldHomes',
+      soldHomes: soldHomes.rows
     });
-  });
+
+  } catch (err) {
+    console.error('Error fecthing sold homes:', err);
+    return res.status(500).json({ error: 'Database error' });
+
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
 });
 
 // Single listing route
-app.get('/listing/:id', (req, res) => {
+app.get('/listing/:id', async (req, res) => {
   const listingId = parseInt(req.params.id, 10);
-  const query = `SELECT * FROM soldHomes WHERE id = ?`;
 
-  db.db.get(query, [listingId], (err, row) => {
-    if (err) {
-      console.error('Error fetching listing:', err.message);
-      return res.status(500).send('An error occurred while fetching the listing.');
-    }
-    if (!row) {
-      return res.status(404).send('Listing not found');
-    }
-
+  let client;
+  try {
+    client = await pool.connect();
+    const listing = await client.query('SELECT * FROM soldHomes WHERE id = $1', [listingId]);
     res.render('listing', {
-      pageTitle: row.title,
-      listing: row
+      pageTitle: listing.rows[0].title,
+      listing: listing.rows[0]
     });
-  });
+
+  } catch (err) {
+    console.error('Error fetching listing', err);
+    return res.status(500).json({ error: 'Database error' });
+
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
 });
 
 // Profile route
@@ -128,20 +138,30 @@ app.get('/contact', (req, res) => {
 //app.use('/admin', adminRouter);
 
 // Start the server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-process.on('SIGTERM', shutdown);
-process.on('SIGINT', shutdown);
+const shutdown = async () => {
+  console.log('Shutting down server');
 
-function shutdown() {
-  db.db.close((err) => {
+  server.close(async (err) => {
     if (err) {
-      console.error('Error closing database:', err.message);
-    } else {
-      console.log('Database closed');
+      console.error('Error closing server:', err);
+      process.exit(1);
+    }
+    
+    try {
+      await pool.end();
+      console.log('Database pool closed.');
       process.exit(0);
+    } catch (err) {
+      console.error('Error closing database pool', err);
+      process.exit(1);
     }
   });
+  
 }
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
