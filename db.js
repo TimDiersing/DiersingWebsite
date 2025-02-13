@@ -9,8 +9,8 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl: {
-    rejectUnauthorized: false,
-    ca: process.env.CACERT
+    ca: process.env.CACERT,
+    rejectUnauthorized: false
   }
 });
 

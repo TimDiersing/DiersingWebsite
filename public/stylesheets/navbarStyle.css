@@ -5,6 +5,7 @@
   height: 4rem;
   width: auto;
   text-shadow: 2px 2px 4px black;
+  display: flex;
 }
 
 .navbar-floating {

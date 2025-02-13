@@ -1,0 +1,49 @@
+.profile-body {
+    margin: 20px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+.profile-section1 {
+    width: 90%;
+    padding: 20px;
+    background-color: #6C9286;
+    display: flex;
+    border-radius: 5px;
+}
+
+.profile-section1 p {
+    color: #F2F1EC; 
+    margin: 30px;
+}
+
+.profile-section2 {
+    width: 90%;
+    height: 300px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #6C9286;
+    display: flex;
+    justify-content: center;
+}
+
+.testimonial-card {
+    background-color: #f2f1ec;
+    padding: 40px;
+    flex-basis: 60%;
+}
+
+.testimonial-name {
+    text-align: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
