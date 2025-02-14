@@ -114,10 +114,23 @@ app.get('/listing/:id', async (req, res) => {
 });
 
 // Profile route
-app.get('/profile', (req, res) => {
-  res.render('profile', {
-    pageTitle: 'Profile - Bob Diersing'
-  });
+app.get('/profile', async (req, res) => {
+  let client;
+  try {
+    client = await pool.connect();
+    const dbData = await client.query('SELECT * FROM testimonials');
+    res.render('profile', {
+      pageTitle: 'Profile - Bob Diersing',
+      testimonials: dbData.rows,
+    });
+  } catch (err) {
+    console.error('Error fetching testimonials', err);
+    return res.status(500).json({ error: 'Database error' });
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
 }); 
 
 // Referals route

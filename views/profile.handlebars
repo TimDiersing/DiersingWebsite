@@ -18,17 +18,31 @@
     </div>
 
     <div class="profile-section2">
-        <span class="material-symbols-outlined">chevron_left</span>
-        <article class="testimonial-card">
-            <p class="testimonial-text">
-                <q>I met Bob Diersing in 1996, after a difficult personal time in my life he helped me reinvest in the real estate market. 
-                With his experience and expertise I was able to make successful real estate purchases. With the many transactions that he 
-                has been involved with I have found him to be informed, highly competent, and able to advise me in my decision making, I 
-                have never dealt with a more professional relator than him, I can't say enough about his integrity and would recommend him 
-                to anyone that wants great service from a realtor that puts his clients interests first.</q>
-            </p>
-            <p class="testimonial-name">Peter</p>
-        </article>
-        <span class="material-symbols-outlined">chevron_right</span>
+        <div id="prev-btn">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </div>
+        <div id="card-list">
+            <!--{{#each testimonials}}
+                <article class="testimonial-card">
+                    <p class="testimonial-text">{{this.testimonial}}</p>
+                    <p class="testimonial-name">{{this.name}}</p>
+                </article>
+            {{/each}}-->
+                <article class="testimonial-card">
+                    <p class="testimonial-text">{{testimonials.[0].testimonial}}</p>
+                    <p class="testimonial-name">{{testimonials.[0].name}}</p>
+                </article>
+                <article class="testimonial-card">
+                    <p class="testimonial-text">{{testimonials.[1].testimonial}}</p>
+                    <p class="testimonial-name">{{testimonials.[1].name}}</p>
+                </article>
+                <article class="testimonial-card">
+                    <p class="testimonial-text">{{testimonials.[0].testimonial}}</p>
+                    <p class="testimonial-name">{{testimonials.[1].name}}</p>
+                </article>
+        </div>
+        <div id="next-btn">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </div>
     </div>
 </div>
