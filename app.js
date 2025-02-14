@@ -41,10 +41,13 @@ app.get('/', async (req, res) => {
   try {
     client = await pool.connect();
     const soldHomes = await client.query('SELECT * FROM soldHomes');
+    const testimonials = await client.query('SELECT * FROM testimonials');
+
     res.render('home', {
       pageTitle: 'Bob Diesing',
       heroText: 'Find Your Perfect Home',
-      soldHomes: soldHomes.rows
+      soldHomes: soldHomes.rows,
+      testimonials: testimonials.rows
     });
 
   } catch (err) {

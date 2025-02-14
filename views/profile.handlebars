@@ -17,24 +17,7 @@
         </p>
     </div>
 
-    <div class="profile-section2">
-        <div class="prev-btn">
-            <span class="material-symbols-outlined">chevron_left</span>
-        </div>
-        <div class="card-list">
-            {{#each testimonials}}
-                <article class="testimonial-card">
-                    <p class="testimonial-text">{{this.testimonial}}</p>
-                    <p class="testimonial-name">{{this.name}}</p>
-                </article>
-            {{/each}}
-        </div>
-        <div class="next-btn">
-            <span class="material-symbols-outlined">chevron_right</span>
-        </div>
-    </div>
+    {{>testimonialCarosuel}}
 
     <div class="blank-space-div"></div>
 </div>
-
-<script src="/js/cardList.js"></script>
