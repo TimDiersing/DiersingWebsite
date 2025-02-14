@@ -180,6 +180,9 @@ body {
 }
 /* ______________________________ */
 
+.blank-space-div {
+  height: 80vh;
+}
 /* _______MEDIA QUEREYS_____*/
 @media (max-width: 2000px) {
   

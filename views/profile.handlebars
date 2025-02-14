@@ -18,31 +18,23 @@
     </div>
 
     <div class="profile-section2">
-        <div id="prev-btn">
+        <div class="prev-btn">
             <span class="material-symbols-outlined">chevron_left</span>
         </div>
-        <div id="card-list">
-            <!--{{#each testimonials}}
+        <div class="card-list">
+            {{#each testimonials}}
                 <article class="testimonial-card">
                     <p class="testimonial-text">{{this.testimonial}}</p>
                     <p class="testimonial-name">{{this.name}}</p>
                 </article>
-            {{/each}}-->
-                <article class="testimonial-card">
-                    <p class="testimonial-text">{{testimonials.[0].testimonial}}</p>
-                    <p class="testimonial-name">{{testimonials.[0].name}}</p>
-                </article>
-                <article class="testimonial-card">
-                    <p class="testimonial-text">{{testimonials.[1].testimonial}}</p>
-                    <p class="testimonial-name">{{testimonials.[1].name}}</p>
-                </article>
-                <article class="testimonial-card">
-                    <p class="testimonial-text">{{testimonials.[0].testimonial}}</p>
-                    <p class="testimonial-name">{{testimonials.[1].name}}</p>
-                </article>
+            {{/each}}
         </div>
-        <div id="next-btn">
+        <div class="next-btn">
             <span class="material-symbols-outlined">chevron_right</span>
         </div>
     </div>
+
+    <div class="blank-space-div"></div>
 </div>
+
+<script src="/js/cardList.js"></script>

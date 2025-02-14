@@ -21,10 +21,9 @@ app.set('view engine', 'handlebars');
 
 // MIDDLEWEAR 
 // Serve static files (CSS, images)
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -34,14 +33,6 @@ app.use((req, res, next) => {
   res.locals.currentYear = new Date().getFullYear();
   next();
 });
-
-/*
-app.use(session({
-  secret: 'sdlkjghskdfh', //process.env.DB_SECRET,
-  resave: false,
-  saveUninitialized: true,
-}));
-*/
 
 // ROUTES
 // Home route
@@ -125,7 +116,8 @@ app.get('/profile', async (req, res) => {
     });
   } catch (err) {
     console.error('Error fetching testimonials', err);
-    return res.status(500).json({ error: 'Database error' });
+    res.status(500).json({ error: 'Database error' });
+
   } finally {
     if (client) {
       client.release();
@@ -134,10 +126,24 @@ app.get('/profile', async (req, res) => {
 }); 
 
 // Referals route
-app.get('/referals', (req, res) => {
-  res.render('referals', {
-    pageTitle: 'Testimonals - Bob Diersing'
-  });
+app.get('/referals', async (req, res) => {
+  let client;
+
+  try {
+    client = await pool.connect();
+    const dbData = await client.query('SELECT * FROM testimonials');
+    res.render('referals', {
+      pageTitle: 'Testimonals - Bob Diersing',
+      testimonials: dbData.rows
+    })
+  } catch (err) {
+    console.error('Error fetching testimonilas', err);
+
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
 }); 
 
 // Contact route
@@ -147,8 +153,8 @@ app.get('/contact', (req, res) => {
   });
 }); 
 
-//const adminRouter = require('./routes/admin');
-//app.use('/admin', adminRouter);
+// const adminRouter = require('./routes/admin');
+// app.use('/admin', adminRouter);
 
 // Start the server
 const server = app.listen(PORT, () => {
