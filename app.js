@@ -3,8 +3,8 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 const pool = require('./db');
-const bcrypt = require('bcrypt');
-// const session = require('express-session');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 require('dotenv').config();
  
 const app = express();
@@ -17,10 +17,9 @@ app.engine('handlebars', engine({
 }));
 
 app.set('view engine', 'handlebars');
-// app.set('veiws', path.join(__dirname, 'veiws'));
+
 
 // MIDDLEWEAR 
-// Serve static files (CSS, images)
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: false }));
@@ -33,6 +32,17 @@ app.use((req, res, next) => {
   res.locals.currentYear = new Date().getFullYear();
   next();
 });
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  cookie: { maxAge: 1000 * 60 * 1 },
+  saveUninitialized: false,
+  resave: false,
+  store: new pgSession({
+    pool: pool,
+    tableName: 'session'
+  })
+}));
 
 // ROUTES
 // Home route
@@ -156,8 +166,8 @@ app.get('/contact', (req, res) => {
   });
 }); 
 
-// const adminRouter = require('./routes/admin');
-// app.use('/admin', adminRouter);
+const adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter);
 
 // Start the server
 const server = app.listen(PORT, () => {
