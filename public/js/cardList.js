@@ -1,6 +1,6 @@
 const prevBtn = document.getElementsByClassName('prev-btn')[0];
 const nextBtn = document.getElementsByClassName('next-btn')[0];
-const cardList = document.getElementsByClassName('card-list')[0];
+const cardList = document.getElementsByClassName('card-holder')[0];
 
 const cardAmt = cardList.children.length;
 var cardWidth = cardList.clientWidth;

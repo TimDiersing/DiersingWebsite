@@ -1,18 +1,22 @@
-<div class="testimonial-carosuel">
-    <div class="prev-btn">
-        <span class="material-symbols-outlined">chevron_left</span>
+<div class="testimonial-partial">
+    <h2 class="top-text">Hear what others have to say</h2>
+    <div class="card-carousel">
+        <div class="prev-btn">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </div>
+        <div class="card-holder">
+            {{#each testimonials}}
+                <article class="testimonial-card">
+                    <p class="testimonial-text">{{this.testimonial}}</p>
+                    <p class="testimonial-name">{{this.name}}</p>
+                </article>
+            {{/each}}
+        </div>
+        <div class="next-btn">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </div>
     </div>
-    <div class="card-list">
-        {{#each testimonials}}
-            <article class="testimonial-card">
-                <p class="testimonial-text">{{this.testimonial}}</p>
-                <p class="testimonial-name">{{this.name}}</p>
-            </article>
-        {{/each}}
-    </div>
-    <div class="next-btn">
-        <span class="material-symbols-outlined">chevron_right</span>
-    </div>
+    <a class="testimonial-button" href="/referals">View More</a>
 </div>
 
 <script src="/js/cardList.js"></script>
