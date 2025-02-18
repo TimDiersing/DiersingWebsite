@@ -5,6 +5,7 @@ const { engine } = require('express-handlebars');
 const pool = require('./db');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
+const nodemailer = require('nodemailer');
 require('dotenv').config();
  
 const app = express();
@@ -68,6 +69,31 @@ app.get('/', async (req, res) => {
     if (client) {
       client.release();
     }
+  }
+});
+
+app.post('/', async (req, res) => {
+  try {
+    console.log("trying to send 1");
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      }
+    });
+
+    console.log("trying to send 2");
+    const info = await transport.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_SEND,
+      subject: "test",
+      test: "testing testing",
+    })
+    console.log("sent?");
+    res.redirect('/');
+  } catch (err) {
+    res.status(500).send(err);
   }
 });
 
