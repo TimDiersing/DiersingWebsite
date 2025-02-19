@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   res.locals.fullName = "Bob Diersing";
   res.locals.phone = "949.683.1958";
   res.locals.email = "bobdiersing@firstteam.com";
+  res.locals.office = "3204 clover Dr, Dana Point";
   res.locals.currentYear = new Date().getFullYear();
   next();
 });
