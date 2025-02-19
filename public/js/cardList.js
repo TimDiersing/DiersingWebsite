@@ -1,16 +1,16 @@
 const prevBtn = document.getElementsByClassName('prev-btn')[0];
 const nextBtn = document.getElementsByClassName('next-btn')[0];
-const cardList = document.getElementsByClassName('card-holder')[0];
+const cardHolder = document.getElementsByClassName('card-holder')[0];
 
-const cardAmt = cardList.children.length;
-var cardWidth = cardList.clientWidth;
+const cardAmt = cardHolder.children.length;
+var cardWidth = cardHolder.clientWidth;
 var currentChild = 0;
 
 nextBtn.addEventListener('click', () => { 
-    console.log(cardAmt, currentChild);
+    console.log(cardWidth);
     if (currentChild < cardAmt - 1){
         currentChild = currentChild + 1;
-        cardList.scroll({
+        cardHolder.scroll({
             left: currentChild * cardWidth,
             behavior: "smooth"
         });
@@ -20,7 +20,7 @@ nextBtn.addEventListener('click', () => {
 prevBtn.addEventListener('click', () => { 
     if (currentChild > 0){
         currentChild = currentChild - 1;
-        cardList.scroll({
+        cardHolder.scroll({
             left: currentChild * cardWidth,
             behavior: "smooth"
         });
@@ -28,8 +28,8 @@ prevBtn.addEventListener('click', () => {
 });
 
 onresize = event => {
-    cardWidth = cardList.clientWidth;
-    cardList.scroll({
+    cardWidth = cardHolder.clientWidth;
+    cardHolder.scroll({
         left: currentChild * cardWidth,
         behavior: "smooth"
     });
