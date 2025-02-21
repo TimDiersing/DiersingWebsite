@@ -1,11 +1,10 @@
-<div class="soldHomes-grid">
+<div class="listing-grid">
     {{#each soldHomes}}
-        <div class="listing-item">
+        <div class="soldHome-card">
             <img src="{{this.image}}" alt="House" class="listing-image"/>
-            <div class="listing-info">
-                <h3>{{this.title}}</h3> 
-            </div>
-            <a href="/listing/{{this.id}}" class="details-link">Learn More</a>
+            <h4 class="address">{{this.address}}</h4>
+            <h3 class="title">{{this.title}}</h3>
+            <a href="/listing/{{this.id}}" class="details-link general-button">Learn More</a>
         </div>
     {{/each}}
 </div>

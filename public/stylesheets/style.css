@@ -110,7 +110,6 @@ body {
   font-weight: 600;
 }
 
-
 .bio-contact-card {
   background-color: #f7f7f7;
   box-shadow: 3px 3px 3px #15232a;
@@ -141,18 +140,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.soldHomes-grid {
-  margin: 0;
-  padding: 1.75% 1%;
-  width: 90%;
-  background-color: #6c9286; 
-  border-radius: 15px;
-  display: grid;
-  justify-content: space-around;
-  grid-template-columns: repeat(auto-fill, 400px);
-  column-gap: 1%;
-  row-gap: 20px;
 }
 
 .view-more {

@@ -27,7 +27,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  gap: 30px;
 }
 
 .navbar-menu li a {

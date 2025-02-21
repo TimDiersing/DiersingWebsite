@@ -51,7 +51,7 @@
     flex-basis: 1200px;
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
     box-shadow: 5px 5px 8px #00000040;
 }
 

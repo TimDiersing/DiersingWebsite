@@ -1,0 +1,22 @@
+/*________SOLD HOMES HERO_______*/
+.soldHomes-hero {
+    width: 90%;
+    height: 40vh;
+    margin: 0;
+    padding: 8vh 5%;
+    background-color: #BECBD2;
+    position: absolute;
+    font-family: "Aboreto", serif;
+    font-weight: 400;
+    font-size: 48px;
+    z-index: -1;
+}
+
+/*_____SOLD HOMES CONTAINER_____*/
+.soldHomes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25vh;
+    gap: 20px;
+}
