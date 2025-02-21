@@ -2,7 +2,7 @@
   background-color: #365b6d;
   margin: 0;
   padding: 0 5% 0 2%;
-  height: 4rem;
+  height: 80px;
   width: auto;
   text-shadow: 2px 2px 4px black;
   display: flex;
@@ -40,13 +40,9 @@
 }
 
 .navbar-menu li a:hover {
-  color: #41c1ba;
+  color: #EFE8B9;
   text-decoration: none;
-  border-bottom: 2px solid #41c1ba;
-}
-
-.navbar-menu li a:active {
-  background-color: #41c1ba;
+  border-bottom: 2px solid #EFE8B9;
 }
 
 .photo-card{
