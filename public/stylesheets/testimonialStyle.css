@@ -9,7 +9,7 @@
     font-family: "Aboreto", serif;
     font-weight: 400;
     font-size: 48px;
-    z-index: -1;
+    z-index: 0;
 }
 
 .testimonials-container {
@@ -18,26 +18,39 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    z-index: 1;
 }
 
 .testimonials-list {
+    height: 100vh;
     width: 70%;
     max-width: 1400px;
     padding: 3vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-padding-block-start: 20px;
     background-color: #F2E0C3;
     box-shadow: 4px 4px 4px #00000040;
+    z-index: 1;
 }
 
 .testimonial {
     background-color: #F2F1EC;
+    width: 100%;
     box-shadow: 4px 4px 4px #00000040;
     font-family: "Afacad", serif;
     font-weight: 400;
     font-size: 19;
+    flex-basis: 33%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    scroll-snap-align: start;
 }
 
 .testimonial .testimonial-text {

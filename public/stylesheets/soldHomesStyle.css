@@ -9,7 +9,7 @@
     font-family: "Aboreto", serif;
     font-weight: 400;
     font-size: 48px;
-    z-index: -1;
+    z-index: 0;
 }
 
 /*_____SOLD HOMES CONTAINER_____*/
@@ -19,4 +19,5 @@
     align-items: center;
     margin-top: 25vh;
     gap: 20px;
+    z-index: 1;
 }

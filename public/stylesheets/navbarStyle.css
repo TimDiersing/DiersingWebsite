@@ -6,6 +6,7 @@
   width: auto;
   text-shadow: 2px 2px 4px black;
   display: flex;
+  z-index: 3;
 }
 
 .navbar-floating {
@@ -20,6 +21,7 @@
   position: absolute;
   display: flex;
   justify-content: space-between;
+  z-index: 3;
 }
 
 .navbar-menu {
