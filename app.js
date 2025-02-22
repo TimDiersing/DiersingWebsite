@@ -144,6 +144,7 @@ app.get('/listing/:id', getListingImages, async (req, res) => {
       pageTitle: listing.rows[0].title,
       listing: listing.rows[0],
       listingImages: res.locals.imageFiles,
+      imageFolder: '/images/house' + req.params.id,
     });
 
   } catch (err) {
