@@ -1,5 +1,8 @@
 {{> navbar}}
 <div class="listing-detail">
+  {{#each listingImages}}
+    <img src="/images/house{{../listing.id}}/{{this}}" alt="House" class="listing-image"/>
+  {{/each}}
   <img src="/images/calleSusannaHouse.jpg" alt="House" class="listing-image"/>
   <h1>{{listing.type}}</h1>
   <h3>Price: ${{listing.price}}</h3>

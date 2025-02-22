@@ -11,7 +11,7 @@ body {
   font-style: normal;
   line-height: 1.6;
   word-spacing: 1.4px;
-  background-color: #F2F1EC;
+  background-color: #FFFFFF;
   color: #15232a;
   z-index: -2;
 }
@@ -62,7 +62,7 @@ body {
   z-index: 1;
   font-size: 80px;
   font-weight: 500;
-  padding: 200px 0 0 0;
+  padding: 300px 0 0 0;
   margin: 0;
 }
 
@@ -107,16 +107,25 @@ body {
   color: #15232a;
 }
 
-.bio-text {
+.bio-section .left-side {
   flex-basis: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.bio-text a {
+.bio-section .left-side p {
+  font-family: "Afacad", serif;
+  font-size: 22px;
+  font-weight: 400;
+}
+.bio-section .bio-button {
+  align-self: flex-end;
   background-color: #264653;
   padding: 8px 12px;
   border: .1rem solid #15232a;
   color: #f2f1ec;
-  font-weight: 600;
 }
 
 .bio-contact-card {
@@ -144,7 +153,7 @@ body {
 
 /* ______SOLD HOMES SECTION______ */
 .soldHomes-section {
-  background-color: #f7f7f7;
+  background-color: #BECBD2;
   padding: 1vh 1vw;
   display: flex;
   flex-direction: column;

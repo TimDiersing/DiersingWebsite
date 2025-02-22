@@ -6,6 +6,7 @@ const pool = require('./db');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 require('dotenv').config();
  
 const app = express();
@@ -121,8 +122,18 @@ app.get('/soldHomes', async (req, res) => {
   }
 });
 
+function getListingImages(req, res, next) {
+  fs.readdir(path.join(__dirname, 'public/images/house' + req.params.id), (err, images) => {
+    if (err) {
+      return next(err);
+    }
+    res.locals.imageFiles = images;
+    next();
+  });
+}
+
 // Single listing route
-app.get('/listing/:id', async (req, res) => {
+app.get('/listing/:id', getListingImages, async (req, res) => {
   const listingId = parseInt(req.params.id, 10);
 
   let client;
@@ -131,7 +142,8 @@ app.get('/listing/:id', async (req, res) => {
     const listing = await client.query('SELECT * FROM soldHomes WHERE id = $1', [listingId]);
     res.render('listing', {
       pageTitle: listing.rows[0].title,
-      listing: listing.rows[0]
+      listing: listing.rows[0],
+      listingImages: res.locals.imageFiles,
     });
 
   } catch (err) {

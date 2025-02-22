@@ -33,6 +33,7 @@
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-padding-block-start: 20px;
+    scroll-snap-stop: normal;
     background-color: #F2E0C3;
     box-shadow: 4px 4px 4px #00000040;
     z-index: 1;
