@@ -1,0 +1,14 @@
+{{> navbar}}
+
+<h1 class="testimonials-hero">Messages From Satisfied Clients</h1>
+<div class="testimonials-container">
+    <div class="testimonials-list">
+        {{#each testimonials}}
+            <article class="testimonial">
+                <p class="testimonial-text">{{this.testimonial}}</p>
+                <p class="testimonial-name">- {{this.name}}</p>
+            </article>
+        {{/each}}
+    </div>
+    {{> contactPartial}}
+</div>

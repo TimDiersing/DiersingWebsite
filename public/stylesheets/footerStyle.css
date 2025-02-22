@@ -1,9 +1,12 @@
 .unified-footer {
-  background-color: #15232a;
+  background-color: #365B6D;
   color: #f7f7f7;
   padding: 20px;
   text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: "Afacad", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .unified-footer .contact-info ul {
@@ -17,7 +20,7 @@
 }
 
 .unified-footer .contact-info ul li a {
-  color: #41c1ba;
+  color: #f7f7f7;
   text-decoration: none;
 }
 

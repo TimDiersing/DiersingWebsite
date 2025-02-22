@@ -30,7 +30,8 @@ app.use((req, res, next) => {
   res.locals.fullName = "Bob Diersing";
   res.locals.phone = "949.683.1958";
   res.locals.email = "bobdiersing@firstteam.com";
-  res.locals.office = "3204 clover Dr, Dana Point";
+  res.locals.office = "32451 Golden Lantern #210, Laguna Niguel, CA 92677";
+  res.locals.officeShort = "32451 Golden Lantern, Laguna Niguel";
   res.locals.currentYear = new Date().getFullYear();
   next();
 });
@@ -165,14 +166,14 @@ app.get('/profile', async (req, res) => {
   }
 }); 
 
-// Referals route
-app.get('/referals', async (req, res) => {
+// Testimonials route
+app.get('/testimonials', async (req, res) => {
   let client;
 
   try {
     client = await pool.connect();
     const dbData = await client.query('SELECT * FROM testimonials');
-    res.render('referals', {
+    res.render('testimonials', {
       pageTitle: 'Testimonals - Bob Diersing',
       testimonials: dbData.rows
     })
