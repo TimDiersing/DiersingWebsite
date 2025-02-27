@@ -10,7 +10,7 @@ const fs = require('fs');
 require('dotenv').config();
  
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5500;
 
 // Set up Handlebars
 app.engine('handlebars', engine({
