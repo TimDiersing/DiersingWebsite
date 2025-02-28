@@ -7,7 +7,6 @@ var cardWidth = cardHolder.clientWidth;
 var currentChild = 0;
 
 nextBtn.addEventListener('click', () => { 
-    console.log(cardWidth);
     if (currentChild < cardAmt - 1){
         currentChild = currentChild + 1;
         cardHolder.scroll({

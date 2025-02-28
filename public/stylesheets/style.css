@@ -82,10 +82,10 @@ body {
 }
 
 .scroll-text {
-  color:#15232a;
+  color:#f2f1ec;
   font-family: "Italiana", serif;
-  font-size: 28px;
-  font-weight: 600
+  font-size: 22px;
+  font-weight: 400;
 }
 
 /* ___________________________ */
@@ -93,9 +93,8 @@ body {
 /* ________BIO SECTION________ */
 .bio-section {
   margin: 0;
-  padding: 0;
+  padding: 10vh 0;
   width: auto;
-  height: 80vh;
   background-color: #f2f1ec;
   display: flex;
   align-items: center;
@@ -196,7 +195,12 @@ body {
   }
 
   .bio-section {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  .bio-section .left-side {
+    padding: 5vh 3vw;
   }
   .bio-text{
     font-size: 12px;
