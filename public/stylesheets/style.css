@@ -1,10 +1,4 @@
-html {
-  background-color: #365B6D;
-  z-index: -3;
-}
 body {
-  overflow-x: hidden;
-  width: 100%;
   margin: 0;
   padding: 0;
   font-family: "Aboreto", serif;
@@ -16,6 +10,11 @@ body {
   background-color: #365B6D;
   color: #15232a;
   z-index: -2;
+}
+
+.main-wrapper {
+  overflow-x: hidden;
+  width: 100%;
 }
 /* ________FONT CLASSES________ */
 
