@@ -11,7 +11,7 @@ body {
   font-style: normal;
   line-height: 1.6;
   word-spacing: 1.4px;
-  background-color: #FFFFFF;
+  background-color: #365B6D;
   color: #15232a;
   z-index: -2;
 }
@@ -76,7 +76,7 @@ body {
 
 .scroll-icon {
   position: absolute;
-  top: 90vh;
+  bottom: 8px;
   width: 100%;
   text-align: center;
 }

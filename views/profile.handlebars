@@ -2,11 +2,14 @@
 
 <div class="profile-body">
     <div class="profile-section1">
-        <h2>Meet</h2>
-        <h1>Bob Diersing</h1>
-        <h3>Real estate expert since 1990 more random stuff about whatever not sure yet</h3>
-        <img src="images/bioImage.png" alt="bioImage">
+        <div class="left-side">
+            <h2>Meet</h2>
+            <h1>Bob Diersing</h1>
+            <h3>Real estate expert since 1990 more random stuff about whatever not sure yet</h3>
+        </div>
+        <img src="images/bioImage.png" alt="bioImage" width="300">
     </div>
+    
     <div class="profile-section2">
         <video controls autoplay height="400">
             <source src="videos/bioVideo.mp4" type="video/mp4">
@@ -23,7 +26,7 @@
         </p>
     </div>
 
-    {{>testimonialPartial}}
+    {{> testimonialPartial}}
 
-    {{>contactPartial heroText="Get in touch"}}
+    {{> contactPartial heroText="Get in touch"}}
 </div>
