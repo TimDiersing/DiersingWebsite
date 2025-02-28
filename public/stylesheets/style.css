@@ -3,6 +3,8 @@ html {
   z-index: -3;
 }
 body {
+  overflow-x: hidden;
+  width: 100%;
   margin: 0;
   padding: 0;
   font-family: "Aboreto", serif;
