@@ -1,7 +1,6 @@
 <h1>Previous Sales</h1>
 <div class="soldHomes-container">
   {{#each soldHomes}}
-    <a href="/listing/{{this.id}}" class="listing-as-link">
     <div class="listing-item">
       <img src="{{this.image}}" alt="House" class="listing-image"/>
       <div class="listing-info">
@@ -9,7 +8,7 @@
         <p class="listing-price">Sold for ${{this.price}}</p>
         <p>Bed: {{this.beds}} | Bath: {{this.baths}}</p>
       </div>
-      <a href="/listing/{{this.id}}" class="details-link">View Details</a>
+      <a href="listing/{{this.id}}" class="details-link">Edit Listing</a>
       <button onclick="confirmAction()">Delete</button>
     <script>
         async function confirmAction() {
