@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  cookie: { maxAge: 1000 * 60 * 1 },
+  cookie: { maxAge: 1000 * 60 * 60 },
   saveUninitialized: false,
   resave: false,
   store: new pgSession({
@@ -207,7 +207,7 @@ app.get('/contact', (req, res) => {
   });
 }); 
 
-const adminRouter = require('./routes/admin');
+const adminRouter = require('./routes/adminRouter');
 app.use('/admin', adminRouter);
 
 // Start the server

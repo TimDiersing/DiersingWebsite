@@ -4,7 +4,6 @@ const router = express.Router();
 
 // Middleware to check admin authentication
 function isAdmin(req, res, next) {
-  console.log(req.session);
   if (req.session.isAdmin) {
     return next();
   } else {
@@ -53,6 +52,27 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   }
 });
 
+router.post('/addListing', isAdmin, async (req, res) => {
+  let client;
+  const { address, title, image, story } = req.body;
+
+  try {
+    client = await pool.connect();
+    await client.query('INSERT INTO soldHomes (address, title, image, story) VALUES ($1, $2, $3, $4)',
+       [address, title, 'sdfkjgh', story]);
+    res.redirect('/admin/dashboard');
+
+  } catch (err) {
+    console.error('Error adding data', err);
+    res.status(500).json({ Error: 'Database error' });
+
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
+});
+
 router.get('/listing/:id', isAdmin, async (req, res) => {
   let client;
   try {
@@ -88,6 +108,22 @@ router.post('/listing/:id', isAdmin, async (req, res) => {
 
   } catch (err) {
     console.error('Error updataing listing', err);
+    res.status(500).json({ Error: 'Database error' });
+  } finally {
+    client.release();
+  }
+});
+
+router.delete('/listing/:id', isAdmin, async (req, res) => {
+  let client;
+  const listingId = parseInt(req.params.id);
+  try {
+    client = await pool.connect();
+    await client.query('DELETE FROM soldHomes WHERE id = $1', [listingId]);
+    res.redirect('/admin/dashboard');
+
+  } catch (err) {
+    console.error('Error deleting from db', err);
     res.status(500).json({ Error: 'Database error' });
   } finally {
     client.release();
