@@ -1,14 +1,16 @@
 {{> navbar}}
 <article class="listing-container">
-  <a href="/soldHomes">Back to previous sales</a>
-  {{> imageCarousel folderPath=imageFolder images=listingImages }}
+  <a class="back-btn" href="/soldHomes"><span class="material-symbols-outlined">chevron_left</span>Back to previous sales</a>
+  <section class="listing-images">
+    {{> imageCarousel folderPath=imageFolder images=listingImages }}
+  </section>
   <section class="listing-details">
     <ul>
-      <li>Sold For:</li>
+      <li class="big-font">Sold For:</li>
       <li class="price">{{listing.soldprice}}</li>
-      <li class="address">{{listing.address}}</li>
-      <li class="bed-baths">{{listing.bedbaths}}</li>
-      <li class="sqft">Size: {{listing.sqft}} sqft</li>
+      <li class="big-font">{{listing.address}}</li>
+      <li class="big-font">{{listing.bedbaths}}</li>
+      <li class="big-font">Size: {{listing.sqft}} sqft</li>
       <li class="description"><p>{{listing.description}}</p></li>
     </ul>
   </section>

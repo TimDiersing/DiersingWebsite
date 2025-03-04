@@ -54,8 +54,8 @@ app.get('/', async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const soldHomes = await client.query('SELECT * FROM soldHomes');
-    const testimonials = await client.query('SELECT * FROM testimonials');
+    const soldHomes = await client.query('SELECT * FROM soldHomes ORDER BY id DESC');
+    const testimonials = await client.query('SELECT * FROM testimonials ORDER BY id DESC');
 
     res.render('home', {
       pageTitle: 'Bob Diesing',
