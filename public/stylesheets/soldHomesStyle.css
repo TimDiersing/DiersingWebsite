@@ -16,6 +16,7 @@
 .soldHomes-container {
     display: flex;
     flex-direction: column;
+    background-color: #F2F1EC;
     align-items: center;
     margin-top: 25vh;
     gap: 20px;

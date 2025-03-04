@@ -1,9 +1,19 @@
 {{> navbar}}
-<div class="listing-detail">
-  {{> imageCarousel folderPath=imageFolder images=listingImages }}
-  <h1>{{listing.type}}</h1>
-  <h3>Price: ${{listing.price}}</h3>
-  <p>{{listing.story}}</p>
-  <p>Address: {{listing.address}}</p>
+<article class="listing-container">
   <a href="/soldHomes">Back to previous sales</a>
-</div>
+  {{> imageCarousel folderPath=imageFolder images=listingImages }}
+  <section class="listing-details">
+    <ul>
+      <li>Sold For:</li>
+      <li class="price">{{listing.soldprice}}</li>
+      <li class="address">{{listing.address}}</li>
+      <li class="bed-baths">{{listing.bedbaths}}</li>
+      <li class="sqft">Size: {{listing.sqft}} sqft</li>
+      <li class="description"><p>{{listing.description}}</p></li>
+    </ul>
+  </section>
+  <section class="listing-story">
+    <h2>He we came out on top</h2>
+    <p>{{listing.story}}</p>
+  </section>
+</article>

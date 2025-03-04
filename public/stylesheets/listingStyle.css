@@ -1,0 +1,15 @@
+/*_______LISTING PAGE________*/
+.listing-container {
+    background-color: #BECBD2;
+
+}
+
+.listing-container .listing-details {
+    background-color: #F2F1EC;
+    box-shadow: 4px 4px 4px #00000040;
+}
+
+.listing-container .listing-story p {
+    background-color: #F2F1EC;
+    box-shadow: 4px 4px 4px #00000040;
+}

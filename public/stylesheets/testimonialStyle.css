@@ -14,6 +14,7 @@
 
 .testimonials-container {
     margin-top: 20vh;
+    background-color: #F2F1EC;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -121,20 +122,13 @@
     display: none;
 }
 
-.prev-btn {
+.card-carousel .prev-btn {
     margin: 20px;
     cursor: pointer;
 }
 
-.next-btn {
+.card-carousel .next-btn {
     margin: 20px;
     cursor: pointer;
 }
 
-.material-symbols-outlined {
-    font-variation-settings:
-    'opsz' 24
-    'wght' 400,
-    'FILL' 0,
-    'GRAD' 0,
-}

@@ -1,9 +1,19 @@
 <form action="/admin/listing/{{listing.id}}" method="post">
-    <label for="address">Address:</label>
-    <input type="text" name="address" value="{{listing.address}}"><br>
+    <label for="image">Image Path:</label>
+    <input type="text" name="image" value="{{listing.image}}"><br>
     <label for="title">Title:</label>
     <input type="text" name="title" value="{{listing.title}}"><br>
+    <label for="address">Address:</label>
+    <input type="text" name="address" value="{{listing.address}}"><br>
     <label for="story">Story:</label>
     <textarea name="story">{{listing.story}}</textarea><br>
+    <label for="soldPrice">Sold for amount:</label>
+    <input type="text" name="soldPrice" value="{{listing.soldprice}}"><br>
+    <label for="bedBaths">Beds and baths as string:</label>
+    <input type="text" name="bedBaths" value="{{listing.bedbaths}}"><br>
+    <label for="sqft">Sqft amount as integer:</label>
+    <input type="text" name="sqft" value="{{listing.sqft}}"><br>
+    <label for="description">House Description:</label>
+    <textarea name="description">{{listing.description}}</textarea><br>
     <input type="submit" value="Submit">
 </form>

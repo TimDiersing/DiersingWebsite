@@ -14,12 +14,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #F2E0C3;
+    box-shadow: 4px 4px 4px #00000040;
+    padding: 3% 0;
 }
 
 .image-holder {
     display: flex;
     overflow-x: hidden;
-    width: 50%;
     scroll-snap-type: x mandatory;
 }
 
@@ -27,13 +29,30 @@
     flex-basis: 100%;
     flex-shrink: 0;
     height: auto;
+    aspect-ratio: 16 / 9;
     scroll-snap-align: start;
 }
 
 .image-number {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 0;
+    right: 65px;
+}
+
+.image-carousel .next-btn, .image-carousel .prev-btn {
+    margin: 0;
+    flex-basis: 5%;
+    height: 100px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-variation-settings: 'wght' 300;
+}
+
+.image-carousel .next-btn:hover, .image-carousel .prev-btn:hover {
+    font-variation-settings: 'wght' 600;
 }
 
 .next-btn span::-moz-selection, .prev-btn span::-moz-selection { color: #000000;  background: #F2F1EC; }

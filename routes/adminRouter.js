@@ -59,7 +59,7 @@ router.post('/addListing', isAdmin, async (req, res) => {
   try {
     client = await pool.connect();
     await client.query('INSERT INTO soldHomes (address, title, image, story) VALUES ($1, $2, $3, $4)',
-       [address, title, 'sdfkjgh', story]);
+       [address, title, '/images/viaAguliaHouse.jpg', story]);
     res.redirect('/admin/dashboard');
 
   } catch (err) {
@@ -97,13 +97,14 @@ router.get('/listing/:id', isAdmin, async (req, res) => {
 });
 
 router.post('/listing/:id', isAdmin, async (req, res) => {
-  const { address, title, story } = req.body;
+  const { image, title, address, story, soldPrice, bedBaths, sqft, description } = req.body;
 
   let client;
   try {
     client = await pool.connect();
-    await client.query('UPDATE soldHomes SET address = $1, title = $2, story = $3 WHERE id = $4', 
-                        [address, title, story, req.params.id]);
+    await client.query('UPDATE soldHomes SET image = $1, title = $2, address = $3,' + 
+                       'story = $4, soldPrice = $5, bedBaths = $6, sqft = $7, description = $8 WHERE id = $9', 
+                        [image, title, address, story, soldPrice, bedBaths, sqft, description, req.params.id]);
     res.redirect('/admin/dashboard');
 
   } catch (err) {
@@ -120,7 +121,7 @@ router.delete('/listing/:id', isAdmin, async (req, res) => {
   try {
     client = await pool.connect();
     await client.query('DELETE FROM soldHomes WHERE id = $1', [listingId]);
-    res.redirect('/admin/dashboard');
+    res.redirect('/dashboard');
 
   } catch (err) {
     console.error('Error deleting from db', err);
