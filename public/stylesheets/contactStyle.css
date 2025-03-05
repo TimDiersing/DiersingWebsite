@@ -1,4 +1,103 @@
+/*__________CONTACT PAGE_________*/
+.contact-body {
+    position: relative;
+    background-color: #BECBD2;
+}
 
+.contact-body img {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.contact-hero {
+    position: relative;
+    z-index: 1;
+    background-color: #f2e0c3e1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.contact-hero h1 {
+    flex-shrink: 0;
+    font-size: 60px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 3rem;
+}
+
+.contact-hero p {
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0;
+    line-height: normal;
+}
+
+.contact-body-flex {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    padding-top: 30vw;
+    padding-bottom: 3rem;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: start;
+}
+
+.contact-form-section {
+    background-color: #f2e0c3e1;
+    padding: 1rem;
+    flex-basis: clamp(400px, 30%, 800px);
+    flex-grow: 0;
+}
+
+.contact-form-section h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 50px;
+    grid-template-areas: 
+    "first last"
+    "email email"
+    "message message"
+    "message message"
+    "submit .";
+    gap: 1rem;
+}
+
+.contact-form .text-box::placeholder {
+    font-family: "Afacad", serif;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.contact-form .fname { grid-area: first; }
+.contact-form .lname { grid-area: last; }
+.contact-form .email { grid-area: email; }
+.contact-form .message { grid-area: message; }
+.contact-form .submit-button { 
+    grid-area: submit; 
+    border-radius: 0;
+    border: none;
+    font-family: "Aboreto", serif;
+    font-weight: 400;
+}
+
+.contact-card-section {
+    font-style: normal;
+}
+.contact-card-section h3 {
+    font-size: 2rem;
+    font-weight: 400;
+}
 
 /*_________CONTACT PARTIAL_______*/
 .contact-partial {

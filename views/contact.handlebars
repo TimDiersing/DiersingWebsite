@@ -1,6 +1,25 @@
 {{> navbar}}
 
 <div class="contact-body">
-    {{> contactPartial heroText="Reach Out"}}
-    <div class="blank-space-div"></div>
+    <img src="/images/contactBackround.png">
+    <hgroup class="contact-hero">
+        <h1>Connect With Me</h1>
+        <p>Let an expert help you on every step on the journey</p>
+    </hgroup>
+    <div class="contact-body-flex">
+        <section class="contact-form-section">
+            <h3>Send a quick message</h3>
+            <form class="contact-form" action="/contact" method="post">
+                <input type="text" name="fname" class="fname text-box" placeholder="First Name *">
+                <input type="text" name="lname" class="lname text-box" placeholder="Last Name *">
+                <input type="text" name="email" class="email text-box" placeholder="Email *">
+                <input type="text" name="message" class="message text-box" placeholder="Message *">
+                <button type="submit" class="general-button submit-button">Submit</button>
+            </form>
+        </section>
+        <address class="contact-card-section">
+            {{> contactCard}}
+            <h3>Or use my card</h3>
+        </address>
+    </div>
 </div>

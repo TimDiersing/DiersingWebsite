@@ -75,31 +75,6 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.post('/', async (req, res) => {
-  try {
-    console.log("trying to send 1");
-    const transport = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      }
-    });
-
-    console.log("trying to send 2");
-    const info = await transport.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_SEND,
-      subject: "test",
-      test: "testing testing",
-    })
-    console.log("sent?");
-    res.redirect('/');
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
 // Sold Homes route
 app.get('/soldHomes', async (req, res) => {
   let client;
@@ -206,6 +181,34 @@ app.get('/contact', (req, res) => {
     pageTitle: 'Contact - Bob Diersing'
   });
 }); 
+
+app.post('/contact', async (req, res) => {
+  const { fname, lname, email, message} = req.body;
+
+  try {
+    console.log("trying to send 1");
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      }
+    });
+
+    console.log("trying to send 2");
+    const info = await transport.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_SEND,
+      subject: "Message from website",
+      html: "<br>First Name: " + fname + "<br>Last Name: " + lname +
+            "<br>Email: " + email +"<br>Message: " + message,
+    })
+    console.log("sent?");
+    res.redirect('/contact');
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 const adminRouter = require('./routes/adminRouter');
 app.use('/admin', adminRouter);
