@@ -204,10 +204,24 @@ app.post('/contact', async (req, res) => {
             "<br>Email: " + email +"<br>Message: " + message,
     })
     console.log("sent?");
-    res.redirect('/contact');
+    res.redirect('/thank-you');
   } catch (err) {
     res.status(500).send(err);
   }
+});
+
+// Thank you route
+app.get('/thank-you', (req, res) => {
+  res.render('thankYou', {
+    pageTitle: 'Thank You - Bob Diersing'
+  });
+});
+
+// Privacy Policy route
+app.get('/privacy-policy', (req, res) => {
+  res.render('privacyPolicy', {
+    pageTitle: 'Privacy Policy - Bob Diersing'
+  });
 });
 
 const adminRouter = require('./routes/adminRouter');

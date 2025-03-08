@@ -67,6 +67,7 @@
     grid-template-areas: 
     "first last"
     "email email"
+    "phone phone"
     "message message"
     "message message"
     "submit .";
@@ -82,6 +83,7 @@
 .contact-form .fname { grid-area: first; }
 .contact-form .lname { grid-area: last; }
 .contact-form .email { grid-area: email; }
+.contact-form .phone { grid-area: phone; }
 .contact-form .message { grid-area: message; }
 .contact-form .submit-button { 
     grid-area: submit; 
