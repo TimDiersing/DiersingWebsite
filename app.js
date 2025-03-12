@@ -25,7 +25,7 @@ app.set('view engine', 'handlebars');
 // MIDDLEWEAR 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -178,15 +178,29 @@ app.get('/testimonials', async (req, res) => {
 
 // Contact route
 app.get('/contact', (req, res) => {
+  const errorMessages = {
+    captcha_failed: 'CAPTCHA verification failed. Please try again.',
+    missing_token: 'Please complete the CAPTCHA.',
+    server_error: 'Server error. Please try again later.',
+  };
+  
+  const errorKey = req.query.error;
+  const error = errorMessages[errorKey];
   res.render('contact', {
-    pageTitle: 'Contact - Bob Diersing'
+    pageTitle: 'Contact - Bob Diersing',
+    error: error,
+    userFName: req.query.user_fname,
+    userLName: req.query.user_lname,
+    userEmail: req.query.user_email,
+    userPhone: req.query.user_phone,
+    userMessage: req.query.user_message
   });
 }); 
 
 app.post('/contact', async (req, res) => {
-  const { fname, lname, email, message, 'g-recaptcha-response': token} = req.body;
-  const captchaVerified = await axios.post(`https://www.google.com/recaptcha/api/siteverify?
-  secret=${process.env.CAP_SECRET}&response=${token})`);
+  const { fname, lname, email, phone, message, 'g-recaptcha-response': token} = req.body;
+
+  const captchaVerified = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAP_SECRET}&response=${token})`);
   const {success, score, action} = captchaVerified.data;
 
   if (success) {
@@ -204,7 +218,9 @@ app.post('/contact', async (req, res) => {
           to: process.env.EMAIL_SEND,
           subject: "Message from website",
           html: "<br>First Name: " + fname + "<br>Last Name: " + lname +
-                "<br>Email: " + email +"<br>Message: " + message,
+                "<br>Email: " + email +
+                "<br>Phone: " + phone +
+                "<br>Message: " + message,
         })
         console.log('Email sent');
         res.redirect('/thank-you');
@@ -212,6 +228,8 @@ app.post('/contact', async (req, res) => {
         console.log('Email failed to send');
         res.status(500).send(err);
       }
+  } else {
+    res.redirect(`/contact?error=captcha_failed&user_fname=${encodeURIComponent(fname)}&user_lname=${encodeURIComponent(lname)}&user_email=${encodeURIComponent(email)}&user_phone=${encodeURIComponent(phone)}&user_message=${encodeURIComponent(message)}`);
   }
 });
 

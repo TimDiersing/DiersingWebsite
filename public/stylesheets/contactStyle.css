@@ -53,6 +53,10 @@
     flex-grow: 0;
 }
 
+.contact-form-section .error-message {
+    color: red;
+}
+
 .contact-form-section h3 {
     font-size: 2rem;
     font-weight: 400;

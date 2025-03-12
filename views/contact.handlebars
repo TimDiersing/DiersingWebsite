@@ -9,12 +9,15 @@
     <div class="contact-body-flex">
         <section class="contact-form-section">
             <h3>Send a quick message</h3>
+            {{#if error}}
+                <div class="error-message">{{error}}</div>
+            {{/if}}
             <form class="contact-form" action="/contact" method="post">
-                <input type="text" name="fname" class="fname text-box" placeholder="First Name *" required>
-                <input type="text" name="lname" class="lname text-box" placeholder="Last Name *" required>
-                <input type="text" name="email" class="email text-box" placeholder="Email *" required>
-                <input type="text" name="phone" class="phone text-box" placeholder="Phone *" required>
-                <input type="text" name="message" class="message text-box" placeholder="Message *">
+                <input type="text" name="fname" class="fname text-box" placeholder="First Name *" value="{{userFName}}" required>
+                <input type="text" name="lname" class="lname text-box" placeholder="Last Name *" value="{{userLName}}" required>
+                <input type="text" name="email" class="email text-box" placeholder="Email *" value="{{userEmail}}" required>
+                <input type="text" name="phone" class="phone text-box" placeholder="Phone *" value="{{userPhone}}" required>
+                <input type="text" name="message" class="message text-box" placeholder="Message *" value="{{userMessage}}">
                 <button type="submit" class="general-button submit-button">Submit</button>
                 <div class="cap g-recaptcha" data-sitekey="6Lfew_EqAAAAAFaYEM6qd_FpYEDOMJayeNjHL0RC"></div>
             </form>
