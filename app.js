@@ -199,14 +199,19 @@ app.get('/contact', (req, res) => {
 
 app.post('/contact', async (req, res) => {
   const { fname, lname, email, phone, message, 'g-recaptcha-response': token} = req.body;
-
-  const captchaVerified = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAP_SECRET}&response=${token})`);
-  const data = captchaVerified.data;
-
   if (!token) {
     return res.redirect(`/contact?error=missing_token&user_fname=${encodeURIComponent(fname)}&user_lname=${encodeURIComponent(lname)}&user_email=${encodeURIComponent(email)}&user_phone=${encodeURIComponent(phone)}&user_message=${encodeURIComponent(message)}`);
   }
-  if (data.success == true) {
+
+  const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`,
+    new URLSearchParams({
+      secret: process.env.CAP_SECRET,
+      response: token,
+    })
+  );
+  
+  const {success, 'error-codes': capErrors } = response.data;
+  if (success == true) {
       try {
         const transport = nodemailer.createTransport({
           service: 'gmail',
@@ -232,7 +237,7 @@ app.post('/contact', async (req, res) => {
         res.status(500).send(err);
       }
   } else {
-    console.log('Captcha failed')
+    console.error('reCatcha error', capErrors);
     res.redirect(`/contact?error=captcha_failed&user_fname=${encodeURIComponent(fname)}&user_lname=${encodeURIComponent(lname)}&user_email=${encodeURIComponent(email)}&user_phone=${encodeURIComponent(phone)}&user_message=${encodeURIComponent(message)}`);
   }
 });
