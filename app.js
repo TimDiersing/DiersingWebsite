@@ -7,6 +7,7 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const axios = require('axios')
 require('dotenv').config();
  
 const app = express();
@@ -182,33 +183,37 @@ app.get('/contact', (req, res) => {
   });
 }); 
 
-// app.post('/contact', async (req, res) => {
-//   const { fname, lname, email, message} = req.body;
+app.post('/contact', async (req, res) => {
+  const { fname, lname, email, message, 'g-recaptcha-response': token} = req.body;
+  const captchaVerified = await axios.post(`https://www.google.com/recaptcha/api/siteverify?
+  secret=${process.env.CAP_SECRET}&response=${token})`);
+  const {success, score, action} = captchaVerified.data;
 
-//   try {
-//     console.log("trying to send 1");
-//     const transport = nodemailer.createTransport({
-//       service: 'gmail',
-//       auth: {
-//         user: process.env.EMAIL_USER,
-//         pass: process.env.EMAIL_PASS,
-//       }
-//     });
-
-//     console.log("trying to send 2");
-//     const info = await transport.sendMail({
-//       from: process.env.EMAIL_USER,
-//       to: process.env.EMAIL_SEND,
-//       subject: "Message from website",
-//       html: "<br>First Name: " + fname + "<br>Last Name: " + lname +
-//             "<br>Email: " + email +"<br>Message: " + message,
-//     })
-//     console.log("sent?");
-//     res.redirect('/thank-you');
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
+  if (success) {
+      try {
+        const transport = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          }
+        });
+    
+        const info = await transport.sendMail({
+          from: process.env.EMAIL_USER,
+          to: process.env.EMAIL_SEND,
+          subject: "Message from website",
+          html: "<br>First Name: " + fname + "<br>Last Name: " + lname +
+                "<br>Email: " + email +"<br>Message: " + message,
+        })
+        console.log('Email sent');
+        res.redirect('/thank-you');
+      } catch (err) {
+        console.log('Email failed to send');
+        res.status(500).send(err);
+      }
+  }
+});
 
 // Thank you route
 app.get('/thank-you', (req, res) => {
