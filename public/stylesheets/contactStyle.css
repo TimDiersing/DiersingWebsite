@@ -21,15 +21,15 @@
     justify-content: space-between;
 }
 .contact-hero h1 {
-    flex-shrink: 0;
-    font-size: 60px;
+    text-wrap: nowrap;
+    font-size: clamp(2rem, 5vw, 6rem);
     font-weight: 400;
     margin: 0;
     padding: 0 3rem;
 }
 
 .contact-hero p {
-    font-size: 36px;
+    font-size: clamp(1rem, 2vw, 4rem);
     font-weight: 400;
     margin: 0;
     line-height: normal;
@@ -58,7 +58,7 @@
 }
 
 .contact-form-section h3 {
-    font-size: 2rem;
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
     font-weight: 400;
     margin: 0;
     margin-bottom: 1rem;
@@ -76,6 +76,7 @@
     "message message"
     "submit capatcha";
     gap: 1rem;
+    padding-bottom: 1rem;
 }
 
 .contact-form .text-box::placeholder {
@@ -172,5 +173,38 @@
     .contact-partial {
         flex-direction: column-reverse;
         gap: 3vw;
+    }
+
+    .contact-hero {
+        flex-direction: column;
+    }
+
+    .contact-body-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 3vh;
+    }
+
+    .contact-card-section {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+
+    .contact-form-section {
+        width: clamp(390px, 80%, 900px);
+    }
+}
+
+@media (max-width: 600px) {
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .contact-form input {
+        flex-basis: 50px;
+        width: 100%;
     }
 }

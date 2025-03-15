@@ -40,7 +40,6 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
   color: #f2f1ec;
   font-size: 16px;
   text-shadow: 3px 3px 3px #15232a;
@@ -52,35 +51,28 @@ body {
 }
 
 .hero video {
-  position: absolute;
   object-fit: cover;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  object-position: center;
   z-index: 0;
+  width: 100%;
+  height: 100vh;
 }
 
-.hero-header {
+.hero-text {
   position: absolute;
-  top: 16rem;
-  z-index: 1;
-  font-size: clamp(4.5vw, 5rem, 6vw);
+  top: 30vh;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-text h1 {
+  font-size: clamp(2rem, 5vw, 6rem);
   font-weight: 400;
-  margin: 0;
-  padding: 0;
-  width: 100%;
 }
-
-.hero-subheader {
-  position: absolute;
-  top: 60vh;
-  z-index: 1;
-  font-size: 30px; 
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-  width: 100%;
+.hero-text p {
+  margin-top: 5vh;
+  font-size: clamp(1rem, 1.6vw, 3rem);
+  font-weight: 400;
 }
 
 .scroll-icon {
