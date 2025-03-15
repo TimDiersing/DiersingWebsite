@@ -2,8 +2,8 @@
     <img class="logo" src="/favicon.png" alt="logo" width="80" height="80">
     <ul>
         <li>{{fullName}}</li>
-        <li><span class="material-symbols-outlined">call</span>{{phone}}</li>
-        <li><span class="material-symbols-outlined">mail</span>{{email}}</li>
-        <li><span class="material-symbols-outlined">apartment</span>{{officeShort}}</li>
+        <li><span class="material-symbols-outlined">call</span><a href="tel:{{phone}}">{{phone}}</a></li>
+        <li><span class="material-symbols-outlined">mail</span><a href="mailto:{{email}}">{{email}}</a></li>
+        <li><span class="material-symbols-outlined">apartment</span><a href="https://maps.google.com/?q={{office}}">{{officeShort}}</a></li>
     </ul>
 </address>
