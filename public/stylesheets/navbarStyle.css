@@ -1,114 +1,74 @@
 .navbar {
-  background-color: #365b6d;
-  margin: 0;
-  padding: 0 5% 0 2%;
-  height: 80px;
-  width: auto;
-  text-shadow: 2px 2px 4px black;
-  display: flex;
-  z-index: 3;
+  background-color: #365B6D;
+  position: relative;
+  z-index: 9;
 }
-
-.navbar-floating {
-  background-color: #365b6d;
-  margin: 0;
-  padding: 0 5% 0 2%;
-  height: 60px;
-  width: 88%;
-  top: 90px;
-  left: 5%;
-  /*text-shadow: 2px 2px 4px black;*/
-  position: absolute;
+.navbar ul {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  z-index: 3;
-}
-
-.navbar-menu {
+  align-items: center;
   list-style: none;
+}
+.navbar li {
+  height: 60px;
+}
+.navbar .logo {
+  margin-right: 10px;
+  margin-left: auto;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 30px;
 }
 
-.navbar-menu li a {
-  color: #f7f7f7;
+.navbar a {
+  height: 100%;
+  padding: 0 30px;
   text-decoration: none;
-  font-size: 1.25em;
-  font-weight: 100;
-  font-stretch: extra-expanded;
-  transition: color 0.3s, border-bottom 0.3s;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  transition: all 0.5s ease-out;
 }
 
-.navbar-menu li a:hover {
+.navbar a:hover {
+  text-decoration: underline;
+  translate: 0 -1px;
   color: #EFE8B9;
-  text-decoration: none;
-  border-bottom: 2px solid #EFE8B9;
 }
 
-.photo-card{
-  margin: 0;
-  padding: 0;
-  height: 14rem;
-  width: 11rem;
-  background-color: #f7f7f7;
-  box-shadow: 5px 5px 10px;
-  position: absolute;
-  top: -100%;
-  right: 10%;
-  display: flex;
+.navbar .sidebar {
+  background-color: #365b6d71;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 300px;
+  z-index: 10;
+  display: none;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  color: #15232a;
-  text-shadow: none;
 }
 
-.photo-card img{
-  margin: 5% 0;
-  width: 150px;
-  height: auto;
+.navbar .sidebar li {
+  width: 100%;
 }
 
-.photo-card .name {
-  margin: 0;
-  padding: 0;
-  font-size: 1.25rem;
+.navbar .menu-button {
+  display: none;
 }
 
-.photo-card .number {
-  margin: 0;
-  padding: 0;
-  font-size: .75rem;
-}
-
-@media (max-width: 1024px) {
-  .photo-card {
+@media(max-width: 940px) {
+  .hide-on-mobile {
     display: none;
-    visibility: none;
+  }
+
+  .navbar .menu-button {
+    display: block;
   }
 }
 
-@media(max-width: 768px) {
-  .navbar-floating {
-    top: 0;
-    left: 0;
-    width: 98%;
-    height: 45px;
-    padding: 0 1%;
-    font-size: 12px;
-    justify-content: center;
-  }
-
-  .navbar-menu {
-    padding: 0;
-  }
-}
-
-@media(max-width: 480px) {
-  .navbar-floating {
-    font-size: 8px;
-    height: 30px
+@media(max-width: 600px) {
+  .navbar .sidebar {
+    width: 100%;
   }
 }

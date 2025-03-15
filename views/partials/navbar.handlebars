@@ -1,11 +1,31 @@
 <nav class="navbar">
-  <ul class="navbar-menu">
+  <ul class="sidebar">
+    <li onclick=HideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e8eaed"><path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z"/></svg></a></li>
     <li><a href="/">Home</a></li>
     <li><a href="/soldHomes">Previous Sales</a></li>
     <li><a href="/testimonials">Testimonials</a></li>
     <li><a href="/profile">Profile</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
-  <a href="/profile">
-  </a>
+  <ul class="mainbar">
+    <li class="hide-on-mobile"><a href="/">Home</a></li>
+    <li class="hide-on-mobile"><a href="/soldHomes">Previous Sales</a></li>
+    <li class="hide-on-mobile"><a href="/testimonials">Testimonials</a></li>
+    <li class="hide-on-mobile"><a href="/profile">Profile</a></li>
+    <li class="hide-on-mobile"><a href="/contact">Contact</a></li>
+    <li class="menu-button" onclick=ShowSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e8eaed"><path d="M160-269.23v-40h640v40H160ZM160-460v-40h640v40H160Zm0-190.77v-40h640v40H160Z"/></svg></a></li>
+    <li class="logo"><img src="favicon.png" alt="logo" width="45" height="45"></li>
+  </ul>
 </nav>
+
+<script>
+  function ShowSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.style.display = 'flex';
+  } 
+
+  function HideSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.style.display = 'none';
+  } 
+</script>
