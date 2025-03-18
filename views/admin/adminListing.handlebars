@@ -15,5 +15,10 @@
     <input type="text" name="sqft" value="{{listing.sqft}}"><br>
     <label for="description">House Description:</label>
     <textarea name="description">{{listing.description}}</textarea><br>
+    <label for="type">Choose listing type:</label>
+    <select name="type">
+        <option value="listed">Current Listing</option>
+        <option value="sold">Sold Listing</option>
+    </select>
     <input type="submit" value="Submit">
 </form>

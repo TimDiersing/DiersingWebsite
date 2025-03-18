@@ -23,8 +23,10 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS) {
       req.session.isAdmin = true;
+      console.log("logged in");
       res.redirect('/admin/dashboard');
     } else {
+      console.log("loggin failed");
       res.redirect('/admin/login');
     }
 });
@@ -33,7 +35,7 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const dbData = await client.query('SELECT * FROM soldHomes');
+    const dbData = await client.query('SELECT * FROM listings');
 
     res.render('admin/adminDashboard', {
       pageTitle: 'Admin Dashboard',
@@ -58,7 +60,7 @@ router.post('/addListing', isAdmin, async (req, res) => {
 
   try {
     client = await pool.connect();
-    await client.query('INSERT INTO soldHomes (address, title, image, story) VALUES ($1, $2, $3, $4)',
+    await client.query('INSERT INTO listings (address, title, image, story) VALUES ($1, $2, $3, $4)',
        [address, title, '/images/viaAguliaHouse.jpg', story]);
     res.redirect('/admin/dashboard');
 
@@ -77,7 +79,7 @@ router.get('/listing/:id', isAdmin, async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const dbData = await client.query('SELECT * FROM soldHomes WHERE id = $1', [req.params.id]);
+    const dbData = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);
 
     res.render("admin/adminListing", {
       pageTitle: 'listing - ' + dbData.rows[0].id,
@@ -97,14 +99,14 @@ router.get('/listing/:id', isAdmin, async (req, res) => {
 });
 
 router.post('/listing/:id', isAdmin, async (req, res) => {
-  const { image, title, address, story, soldPrice, bedBaths, sqft, description } = req.body;
+  const { image, title, address, story, soldPrice, bedBaths, sqft, description, type } = req.body;
 
   let client;
   try {
     client = await pool.connect();
-    await client.query('UPDATE soldHomes SET image = $1, title = $2, address = $3,' + 
-                       'story = $4, soldPrice = $5, bedBaths = $6, sqft = $7, description = $8 WHERE id = $9', 
-                        [image, title, address, story, soldPrice, bedBaths, sqft, description, req.params.id]);
+    await client.query('UPDATE listings SET image = $1, title = $2, address = $3,' + 
+                       'story = $4, soldPrice = $5, bedBaths = $6, sqft = $7, description = $8, type = $9 WHERE id = $10', 
+                        [image, title || 'title', address || 'address', story || 'story', soldPrice || 0, bedBaths || 'bed baths', sqft || 0, description || 'description', type || 'sold', req.params.id]);
     res.redirect('/admin/dashboard');
 
   } catch (err) {
@@ -120,7 +122,7 @@ router.delete('/listing/:id', isAdmin, async (req, res) => {
   const listingId = parseInt(req.params.id);
   try {
     client = await pool.connect();
-    await client.query('DELETE FROM soldHomes WHERE id = $1', [listingId]);
+    await client.query('DELETE FROM listings WHERE id = $1', [listingId]);
     res.redirect('/dashboard');
 
   } catch (err) {

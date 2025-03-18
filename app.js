@@ -55,12 +55,14 @@ app.get('/', async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const soldHomes = await client.query('SELECT * FROM soldHomes ORDER BY id DESC');
+    const soldHomes = await client.query('SELECT * FROM listings WHERE type = $1 ORDER BY id DESC', ['sold']);
+    const listings = await client.query('SELECT * FROM listings WHERE type = $1 ORDER BY id DESC', ['listed']);
     const testimonials = await client.query('SELECT * FROM testimonials ORDER BY id DESC');
 
     res.render('home', {
       pageTitle: 'Bob Diesing',
       heroText: 'Find Your Perfect Home',
+      listings: listings.rows,
       soldHomes: soldHomes.rows,
       testimonials: testimonials.rows
     });
@@ -81,7 +83,7 @@ app.get('/soldHomes', async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const soldHomes = await client.query('SELECT * FROM soldHomes');
+    const soldHomes = await client.query('SELECT * FROM listings WHERE type = $1', ['sold']);
     res.render('soldHomes', {
       pageTitle: 'soldHomes',
       soldHomes: soldHomes.rows
@@ -115,7 +117,7 @@ app.get('/listing/:id', getListingImages, async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const listing = await client.query('SELECT * FROM soldHomes WHERE id = $1', [listingId]);
+    const listing = await client.query('SELECT * FROM listings WHERE id = $1', [listingId]);
     res.render('listing', {
       pageTitle: listing.rows[0].title,
       listing: listing.rows[0],

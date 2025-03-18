@@ -38,6 +38,10 @@
     </aside>
 </div>
 
+{{#if listings}}
+  {{> activeListingPartial}}
+{{/if}}
+
 <div class="soldHomes-section">
   <h1>Previous Success Stories</h1>
   {{> soldHomesGrid}}
