@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../db');
 const axios = require('axios');
+const path = require('path');
 const multer = require('multer');
 const router = express.Router();
 
@@ -78,13 +79,7 @@ router.get('/dashboard', isAdmin, async (req, res) => {
 // Configure dynamic destination for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-
-    let destFolder = path.join(__dirname, '/public/images/house' + req.params.id);
-
-    fs.mkdirSync(destFolder, { recursive: true });
-
-    // Pass the destination folder to Multer
-    cb(null, destFolder);
+    cb(null, 'public/images/listing' + req.listingID);
   },
   filename: (req, file, cb) => {
     // Generate a unique file name using timestamp and original extension
@@ -92,29 +87,20 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    // Only allow image files
-    const allowedTypes = /jpeg|jpg|png|gif/;
-    const mimetype = allowedTypes.test(file.mimetype);
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+const upload = multer({ storage: storage });
 
-    if (mimetype && extname) {
-      return cb(null, true);
-    }
-    cb(new Error('Only image files are allowed (jpeg, jpg, png, gif)'));
-  }
-});
-
-router.post('/addListing', isAdmin, async (req, res) => {
+router.post('/addListing', isAdmin, upload.single("listingImage"), async (req, res) => {
   let client;
-  const { address, title, image, story } = req.body;
 
   try {
     client = await pool.connect();
-    await client.query('INSERT INTO listings (address, title, image, story) VALUES ($1, $2, $3, $4)',
-       [address, title, '/images/viaAguliaHouse.jpg', story]);
+    req.listingID = await client.query('INSERT INTO listings (title, address, image) VALUES ($1, $2, $3) RETURNING id',
+       ['title', 'address', 'path']);
+
+    upload.single('imageFile');
+      console.log(req.body.title);
+    await client.query('UPDATE listings SET title = $1, address = $2, image = $3 WHERE id = $4', [req.body.title, req.body.address, req.file, req.listingID]);
+
     res.redirect('/admin/dashboard');
 
   } catch (err) {
