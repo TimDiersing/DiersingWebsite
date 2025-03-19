@@ -1,5 +1,7 @@
 const express = require('express');
 const pool = require('../db');
+const axios = require('axios');
+const multer = require('multer');
 const router = express.Router();
 
 // Middleware to check admin authentication
@@ -20,14 +22,33 @@ router.get('/login', (req, res) => {
 });
   
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS) {
-      req.session.isAdmin = true;
-      console.log("logged in");
-      res.redirect('/admin/dashboard');
+    const { username, password, 'g-recaptcha-response': token} = req.body;
+
+    if (!token) {
+      res.redirect('/admin/login?error=missing_token');
+    }
+
+    const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`,
+      new URLSearchParams({
+        secret: process.env.CAP_SECRET,
+        response: token,
+      })
+    );
+
+    const {success, 'error-codes': capErrors } = response.data;
+
+    if (success == true) {
+      if (username === process.env.ADMIN_USER && password === process.env.ADMIN_PASS) {
+        req.session.isAdmin = true;
+        console.log("logged in");
+        res.redirect('/admin/dashboard');
+      } else {
+        console.log("loggin failed");
+        res.redirect('/admin/login');
+      }
     } else {
-      console.log("loggin failed");
-      res.redirect('/admin/login');
+      console.error("captcha failed", capErrors);
+      res.redirect('/admin/login?error=captcha_failed');
     }
 });
 
@@ -51,6 +72,38 @@ router.get('/dashboard', isAdmin, async (req, res) => {
     if (client) {
       client.release();
     }
+  }
+});
+
+// Configure dynamic destination for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+
+    let destFolder = path.join(__dirname, '/public/images/house' + req.params.id);
+
+    fs.mkdirSync(destFolder, { recursive: true });
+
+    // Pass the destination folder to Multer
+    cb(null, destFolder);
+  },
+  filename: (req, file, cb) => {
+    // Generate a unique file name using timestamp and original extension
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    // Only allow image files
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const mimetype = allowedTypes.test(file.mimetype);
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb(new Error('Only image files are allowed (jpeg, jpg, png, gif)'));
   }
 });
 

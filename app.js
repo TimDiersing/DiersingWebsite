@@ -7,7 +7,7 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const nodemailer = require('nodemailer');
 const fs = require('fs');
-const axios = require('axios')
+const axios = require('axios');
 require('dotenv').config();
  
 const app = express();
