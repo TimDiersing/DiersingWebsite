@@ -3,7 +3,12 @@ const pool = require('../db');
 const axios = require('axios');
 const path = require('path');
 const multer = require('multer');
+const fs = require('fs').promises;
 const router = express.Router();
+const favicon = require('serve-favicon');
+
+router.use(express.static(path.join(__dirname, '..', 'public')));
+router.use(favicon(path.join(__dirname, '..', 'public', 'favicon.ico')));
 
 // Middleware to check admin authentication
 function isAdmin(req, res, next) {
@@ -76,31 +81,32 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   }
 });
 
-// Configure dynamic destination for file uploads
+// Configure storage options for Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/images/listing' + req.listingID);
+    // Set the destination folder for uploaded files
+    cb(null, 'public/images/listing_images');
   },
   filename: (req, file, cb) => {
-    // Generate a unique file name using timestamp and original extension
-    cb(null, Date.now() + path.extname(file.originalname));
+    // Create a unique filename by prefixing with the current timestamp
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
 
+// Initialize Multer with the defined storage
 const upload = multer({ storage: storage });
 
-router.post('/addListing', isAdmin, upload.single("listingImage"), async (req, res) => {
+router.post('/addListing', isAdmin, upload.array("listingImages", 50), async (req, res) => {
   let client;
+
+  const imgPaths = req.files.map(file => file.path.replace(/^public\\/, ''));
+  const { title, address, shortAdress, story, price, bedBaths, sqft, description, type } = req.body;
 
   try {
     client = await pool.connect();
-    req.listingID = await client.query('INSERT INTO listings (title, address, image) VALUES ($1, $2, $3) RETURNING id',
-       ['title', 'address', 'path']);
-
-    upload.single('imageFile');
-      console.log(req.body.title);
-    await client.query('UPDATE listings SET title = $1, address = $2, image = $3 WHERE id = $4', [req.body.title, req.body.address, req.file, req.listingID]);
-
+    req.listingID = await client.query('INSERT INTO listings (images, title, address, short_address, story, price, bed_baths, sqft, description, type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id',
+      [imgPaths, title, address, shortAdress, story, price, bedBaths, sqft, description, type]);
+      
     res.redirect('/admin/dashboard');
 
   } catch (err) {
@@ -113,6 +119,21 @@ router.post('/addListing', isAdmin, upload.single("listingImage"), async (req, r
     }
   }
 });
+
+async function deleteFiles(imagePaths) {
+  const base = path.join(__dirname, '..', 'public');
+
+  if (Array.isArray(imagePaths)) {
+      const deletePromises = imagePaths.map((imagePath) => {
+        const fullPath = path.join(base, imagePath);
+        return fs.unlink(fullPath);
+      });
+    
+      await Promise.all(deletePromises);
+  } else {
+    await fs.unlink(path.join(base, imagePaths));
+  }
+}
 
 router.get('/listing/:id', isAdmin, async (req, res) => {
   let client;
@@ -137,15 +158,37 @@ router.get('/listing/:id', isAdmin, async (req, res) => {
   }
 });
 
-router.post('/listing/:id', isAdmin, async (req, res) => {
-  const { image, title, address, story, soldPrice, bedBaths, sqft, description, type } = req.body;
+router.post('/listing/:id', isAdmin, upload.any(), async (req, res) => {
+  const { title, address, shortAdress, story, price, bedBaths, sqft, description, type } = req.body;
+
+  let imgPaths;
+  if (req.files.length > 0) {
+    imgPaths = req.files.map(file => file.path.replace(/^public\\/, ''));
+  }
 
   let client;
   try {
     client = await pool.connect();
-    await client.query('UPDATE listings SET image = $1, title = $2, address = $3,' + 
-                       'story = $4, soldPrice = $5, bedBaths = $6, sqft = $7, description = $8, type = $9 WHERE id = $10', 
-                        [image, title || 'title', address || 'address', story || 'story', soldPrice || 0, bedBaths || 'bed baths', sqft || 0, description || 'description', type || 'sold', req.params.id]);
+    await client.query('UPDATE listings SET title = $1, address = $2, short_address = $3, story = $4, price = $5, bed_baths = $6, sqft = $7, description = $8, type = $9 WHERE id = $10', 
+                        [title || 'title', address || 'address', shortAdress || '', story || '', price || 0, bedBaths || '', sqft || 0, description || '', type, req.params.id]);
+
+    // If user updated images
+    if (imgPaths) {
+      const oldImagePaths = await client.query('SELECT images FROM listings WHERE id = $1', [req.params.id]);
+      // If listing had previous images
+      if (oldImagePaths) {
+        try {
+            console.log(oldImagePaths.rows[0].images);
+            await deleteFiles(oldImagePaths.rows[0].images);
+        } catch (err) {
+          console.error("Couln't delete files", err);
+        }
+      }
+
+      // Replace db image paths
+      console.log("replacing images");
+      await client.query('UPDATE listings SET images = $1 WHERE id = $2', [imgPaths, req.params.id]);
+    }
     res.redirect('/admin/dashboard');
 
   } catch (err) {

@@ -6,6 +6,7 @@ const pool = require('./db');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const nodemailer = require('nodemailer');
+const favicon = require('serve-favicon');
 const fs = require('fs');
 const axios = require('axios');
 require('dotenv').config();
@@ -17,16 +18,21 @@ const PORT = process.env.PORT || 5500;
 app.engine('handlebars', engine({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  partialsDir: path.join(__dirname, 'views', 'partials'),
 }));
-
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
+// Serve favicon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-// MIDDLEWEAR 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.get('/listing/favicon.png', (req, res) => {
+  res.redirect('/favicon.ico');
+});
 
 app.use((req, res, next) => {
   res.locals.fullName = "Bob Diersing";
@@ -100,29 +106,18 @@ app.get('/soldHomes', async (req, res) => {
   }
 });
 
-function getListingImages(req, res, next) {
-  fs.readdir(path.join(__dirname, 'public/images/house' + req.params.id), (err, images) => {
-    if (err) {
-      return next(err);
-    }
-    res.locals.imageFiles = images;
-    next();
-  });
-}
-
 // Single listing route
-app.get('/listing/:id', getListingImages, async (req, res) => {
-  const listingId = parseInt(req.params.id, 10);
+app.get('/listing/:id', async (req, res) => {
 
   let client;
+  console.log(req.params.id);
   try {
     client = await pool.connect();
-    const listing = await client.query('SELECT * FROM listings WHERE id = $1', [listingId]);
+    const listing = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);
+
     res.render('listing', {
       pageTitle: listing.rows[0].title,
       listing: listing.rows[0],
-      listingImages: res.locals.imageFiles,
-      imageFolder: '/images/house' + req.params.id,
     });
 
   } catch (err) {

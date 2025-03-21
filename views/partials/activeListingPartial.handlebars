@@ -3,10 +3,10 @@
     <div class="listing-grid">
         {{#each listings}}
             <div class="listing-card">
-                <img src="{{this.image}}" alt="house" width="300" height="300">
+                <img src="{{lookup this.images 0}}" alt="house" width="300" height="300">
                 <h3>{{this.address}}</h3>
                 <p>{{this.price}}</p>
-                <a href="/listing/{{this.id}}" class="details-link general-button">View Details</a>
+                <a href="listing/{{this.id}}" class="details-link general-button">View Details</a>
             </div>
         {{/each}}
     </div>

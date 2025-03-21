@@ -1,12 +1,12 @@
 <article class="listing-container">
   <a class="back-btn" href="/soldHomes"><span class="material-symbols-outlined">chevron_left</span>Back to previous sales</a>
   <section class="listing-images">
-    {{> imageCarousel folderPath=imageFolder images=listingImages }}
+    {{> imageCarousel images=listing.images }}
   </section>
   <section class="listing-details">
     <ul>
       <li class="big-font">Sold For:</li>
-      <li class="price">{{listing.soldprice}}</li>
+      <li class="price">{{listing.price}}</li>
       <li class="big-font">{{listing.address}}</li>
       <li class="big-font">{{listing.bedbaths}}</li>
       <li class="big-font">Size: {{listing.sqft}} sqft</li>
