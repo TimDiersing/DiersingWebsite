@@ -1,36 +1,47 @@
 <a href="/admin/dashboard">back</a>
+{{#each listing.images}} 
+    <img src="/{{this}}" width="200">
+    <p>/{{this}}</p>
+    <p>{{@index}}</p>
+{{/each}}
 <form action="/admin/listing/{{listing.id}}" method="post" enctype="multipart/form-data">
-    <label for="listingImages">Update Images (leave blank to not replace):</label>
-    <input type="file" name="listingImages" accept="image/png, image/jpeg" multiple><br>
+    <label for="imageThumbnail">Index of image to be seen on home screen:</label>
+    <input type="number" name="imageThumbnail" id="imageThumbnail" min="0" max="{{imageCount}}" value="{{#if listing.thumbnail_index}}{{listing.thumbnail_index}}{{else}}0{{/if}}"><br>
 
-    <label for="title">Title:</label>
-    <input type="text" name="title" value="{{listing.title}}"><br>
+    <label for="listingImages">Update Images (leave blank to not replace):</label>
+    <input type="file" name="listingImages" id="listingImages" accept="image/png, image/jpeg" multiple><br>
 
     <label for="address">Full Address (works with google maps link):</label>
-    <input type="text" name="address" value="{{listing.address}}"><br>
+    <input type="text" name="address" id="address" value="{{listing.address}}"><br>
 
     <label for="shortAddress">Short Address:</label>
-    <input type="text" name="shortAddress" value="{{listing.short_address}}"><br>
-
-    <label for="story">Story (For sold listings only):</label>
-    <textarea name="story">{{listing.story}}</textarea><br>
+    <input type="text" name="shortAddress" id="shortAddress" value="{{listing.short_address}}"><br>
 
     <label for="price">List price or Sold price:</label>
-    <input type="text" name="price" value="{{listing.price}}"><br>
+    <input type="text" name="price" id="price" value="{{listing.price}}"><br>
 
-    <label for="bedBaths">Beds and baths as string ex (5 Beds | 4 Baths):</label>
-    <input type="text" name="bedBaths" value="{{listing.bed_baths}}"><br>
+    <label for="beds">Beds as string (if half do 5(4 full - 1 half)):</label>
+    <input type="text" name="beds" id="beds" value="{{listing.beds}}"><br>
+
+    <label for="baths">Baths as string (if half do 5(4 full - 1 half)):</label>
+    <input type="text" name="baths" id="baths" value="{{listing.baths}}"><br>
 
     <label for="sqft">Sqft amount as integer:</label>
-    <input type="text" name="sqft" value="{{listing.sqft}}"><br>
+    <input type="text" name="sqft" id="sqft" value="{{listing.sqft}}"><br>
 
     <label for="description">House Description:</label>
-    <textarea name="description">{{listing.description}}</textarea><br>
+    <textarea name="description" id="description">{{listing.description}}</textarea><br>
 
     <label for="type">Choose listing type:</label>
-    <select name="type">
-        <option value="listed">Active Listing</option>
-        <option value="sold">Sold Listing</option>
-    </select>
+    <select name="type" id="type">
+        <option value="listed" {{#if isListed}}selected="selected"{{/if}}>Active Listing</option>
+        <option value="sold" {{#unless isListed}}selected="selected{{/unless}}">Sold Listing</option>
+    </select><br>
+
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" value="{{listing.title}}"><br>
+
+    <label for="story">Story (For sold listings only):</label>
+    <textarea name="story" id="story">{{listing.story}}</textarea><br>
     <input type="submit" value="Submit">
 </form>

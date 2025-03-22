@@ -1,7 +1,7 @@
 <h1>Previous Sales</h1>
 {{#each soldHomes}}
   <div class="listing-item">
-    <img src="{{lookup this.images 0}}" alt="house" width="500">
+    <img src="/{{lookup this.images 0}}" alt="house" width="500">
     <h3>ID: {{this.id}} | Address: {{this.address}} | Title: {{this.title}}</h3>
     <a href="listing/{{this.id}}" class="details-link">Edit Listing</a>
     <button onclick="confirmDelete({{this.id}})">Delete</button>
@@ -13,23 +13,20 @@
   <label for="listingImages">Listing Images:</label>
   <input type="file" id="listingImages" name="listingImages" accept="image/png, image/jpeg" multiple><br>
 
-  <label for="title">Title:</label>
-  <input type="text" name="title"><br>
-
   <label for="address">Full Address (works with google maps link):</label>
   <input type="text" name="address"><br>
 
   <label for="shortAddress">Short Address:</label>
   <input type="text" name="shortAddress"><br>
 
-  <label for="story">Story (For sold listings only):</label>
-  <textarea name="story"></textarea><br>
-
   <label for="price">List price or Sold price:</label>
   <input type="text" name="price"><br>
 
-  <label for="bedBaths">Beds and baths as string ex (5 Beds | 4 Baths):</label>
-  <input type="text" name="bedBaths"><br>
+  <label for="beds">Beds as string (if half do 5(4 full - 1 half)):</label>
+  <input type="text" name="baths"><br>
+
+  <label for="baths">Baths as string (if half do 5(4 full - 1 half)):</label>
+  <input type="text" name="baths"><br>
 
   <label for="sqft">Sqft amount as integer:</label>
   <input type="text" name="sqft"><br>
@@ -41,6 +38,13 @@
   <select name="type">
       <option value="listed">Active Listing</option>
       <option value="sold">Sold Listing</option>
-  </select>
+  </select><br>
+
+  <label for="title">Title (For sold listings):</label>
+  <input type="text" name="title"><br>
+
+  <label for="story">Story (For sold listings only):</label>
+  <textarea name="story"></textarea><br>
+
   <input type="submit" value="Submit">
 </form>

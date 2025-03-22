@@ -110,7 +110,6 @@ app.get('/soldHomes', async (req, res) => {
 app.get('/listing/:id', async (req, res) => {
 
   let client;
-  console.log(req.params.id);
   try {
     client = await pool.connect();
     const listing = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);

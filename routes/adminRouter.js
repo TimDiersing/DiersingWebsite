@@ -5,10 +5,6 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs').promises;
 const router = express.Router();
-const favicon = require('serve-favicon');
-
-router.use(express.static(path.join(__dirname, '..', 'public')));
-router.use(favicon(path.join(__dirname, '..', 'public', 'favicon.ico')));
 
 // Middleware to check admin authentication
 function isAdmin(req, res, next) {
@@ -62,7 +58,7 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const dbData = await client.query('SELECT * FROM listings');
+    const dbData = await client.query('SELECT * FROM listings ORDER BY id DESC');
 
     res.render('admin/adminDashboard', {
       pageTitle: 'Admin Dashboard',
@@ -100,12 +96,12 @@ router.post('/addListing', isAdmin, upload.array("listingImages", 50), async (re
   let client;
 
   const imgPaths = req.files.map(file => file.path.replace(/^public\\/, ''));
-  const { title, address, shortAdress, story, price, bedBaths, sqft, description, type } = req.body;
+  const { title, address, shortAdress, story, price, beds, baths, sqft, description, type } = req.body;
 
   try {
     client = await pool.connect();
-    req.listingID = await client.query('INSERT INTO listings (images, title, address, short_address, story, price, bed_baths, sqft, description, type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id',
-      [imgPaths, title, address, shortAdress, story, price, bedBaths, sqft, description, type]);
+    req.listingID = await client.query('INSERT INTO listings (images, title, address, short_address, story, price, beds, baths, sqft, description, type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id',
+      [imgPaths, title, address, shortAdress, story, price, beds, baths, sqft, description, type]);
       
     res.redirect('/admin/dashboard');
 
@@ -140,11 +136,23 @@ router.get('/listing/:id', isAdmin, async (req, res) => {
   try {
     client = await pool.connect();
     const dbData = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);
+    
+    let imageCount;
+    let listed = false;
+
+    if (dbData.rows[0].images != null) {
+      imageCount = dbData.rows[0].images.length - 1;
+    }
+    if (dbData.rows[0].type == 'listed') {
+      listed = true;
+    }
 
     res.render("admin/adminListing", {
       pageTitle: 'listing - ' + dbData.rows[0].id,
       layout: 'admin',
-      listing: dbData.rows[0]
+      listing: dbData.rows[0],
+      imageCount: imageCount,
+      isListed: listed,
     });
 
   } catch (err) {
@@ -159,7 +167,7 @@ router.get('/listing/:id', isAdmin, async (req, res) => {
 });
 
 router.post('/listing/:id', isAdmin, upload.any(), async (req, res) => {
-  const { title, address, shortAdress, story, price, bedBaths, sqft, description, type } = req.body;
+  const { title, address, shortAddress, story, price, beds, baths, sqft, description, type, imageThumbnail } = req.body;
 
   let imgPaths;
   if (req.files.length > 0) {
@@ -169,8 +177,8 @@ router.post('/listing/:id', isAdmin, upload.any(), async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    await client.query('UPDATE listings SET title = $1, address = $2, short_address = $3, story = $4, price = $5, bed_baths = $6, sqft = $7, description = $8, type = $9 WHERE id = $10', 
-                        [title || 'title', address || 'address', shortAdress || '', story || '', price || 0, bedBaths || '', sqft || 0, description || '', type, req.params.id]);
+    await client.query('UPDATE listings SET title = $1, address = $2, short_address = $3, story = $4, price = $5, beds = $6, baths = $7, sqft = $8, description = $9, type = $10, thumbnail_index = $11 WHERE id = $12', 
+                        [title || 'title', address || 'address', shortAddress || '', story || '', price || 0, beds, baths, sqft || 0, description || '', type, imageThumbnail, req.params.id]);
 
     // If user updated images
     if (imgPaths) {
