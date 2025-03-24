@@ -65,11 +65,24 @@ app.get('/', async (req, res) => {
     const listings = await client.query('SELECT * FROM listings WHERE type = $1 ORDER BY id DESC', ['listed']);
     const testimonials = await client.query('SELECT * FROM testimonials ORDER BY id DESC');
 
+    const editedSoldListings = soldHomes.rows.map((rows) => {
+      return {
+        ...rows,
+        price: rows.price.substring(0, rows.price.length - 3),
+      }
+    });
+    const editedActiveListings = listings.rows.map((rows) => {
+      return {
+        ...rows,
+        price: rows.price.substring(0, rows.price.length - 3),
+      }
+    });
+
     res.render('home', {
       pageTitle: 'Bob Diesing',
       heroText: 'Find Your Perfect Home',
-      listings: listings.rows,
-      soldHomes: soldHomes.rows,
+      listings: editedActiveListings,
+      soldListings: editedSoldListings,
       testimonials: testimonials.rows
     });
 
@@ -92,7 +105,7 @@ app.get('/soldHomes', async (req, res) => {
     const soldHomes = await client.query('SELECT * FROM listings WHERE type = $1', ['sold']);
     res.render('soldHomes', {
       pageTitle: 'soldHomes',
-      soldHomes: soldHomes.rows
+      soldListings: soldHomes.rows
     });
 
   } catch (err) {

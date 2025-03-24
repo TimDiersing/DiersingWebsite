@@ -1,0 +1,13 @@
+<section class="sold-listing-partial">
+    <h1>{{title}}</h1>
+    <div class="listing-grid">
+        {{#each soldListings}}
+            <a class="listing-card sold" href="/listing/{{this.id}}">
+                <img src="{{lookup this.images this.thumbnail_index}}" alt="house" width="300" height="300">
+                <h3>{{this.short_address}}</h3>
+                <p>{{this.title}}</p>
+                <div class="details-button">View Details</div>
+            </a>
+        {{/each}}
+    </div>
+</section>

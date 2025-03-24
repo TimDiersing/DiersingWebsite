@@ -1,5 +1,15 @@
+<h1>Active Listings</h1>
+{{#each activeListings}}
+  <div class="listing-item">
+    <img src="/{{lookup this.images 0}}" alt="house" width="500">
+    <h3>ID: {{this.id}} | Address: {{this.address}}</h3>
+    <a href="listing/{{this.id}}" class="details-link">Edit Listing</a>
+    <button onclick="confirmDelete({{this.id}})">Delete</button>
+  </div>
+{{/each}}
+
 <h1>Previous Sales</h1>
-{{#each soldHomes}}
+{{#each soldListings}}
   <div class="listing-item">
     <img src="/{{lookup this.images 0}}" alt="house" width="500">
     <h3>ID: {{this.id}} | Address: {{this.address}} | Title: {{this.title}}</h3>

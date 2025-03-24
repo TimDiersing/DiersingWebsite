@@ -58,12 +58,14 @@ router.get('/dashboard', isAdmin, async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const dbData = await client.query('SELECT * FROM listings ORDER BY id DESC');
+    const soldListings = await client.query('SELECT * FROM listings WHERE type = $1 ORDER BY id DESC', ['sold']);
+    const activeListings = await client.query('SELECT * FROM listings WHERE type = $1 ORDER BY id DESC', ['listed']);
 
     res.render('admin/adminDashboard', {
       pageTitle: 'Admin Dashboard',
       layout: 'admin',
-      soldHomes: dbData.rows
+      soldListings: soldListings.rows,
+      activeListings: activeListings.rows,
     });
 
   } catch (err) {
