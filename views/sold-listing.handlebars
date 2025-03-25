@@ -1,5 +1,5 @@
-<article class="listing-page">
-  <a class="back-btn" href="/"><span class="material-symbols-outlined">chevron_left</span>Back</a>
+<article class="listing-container">
+  <a class="back-btn" href="/sold-homes"><span class="material-symbols-outlined">chevron_left</span>Back to previous sales</a>
   <section class="listing-images">
     {{> image-carousel images=listing.images }}
   </section>
@@ -10,7 +10,7 @@
       <li class="big-font">{{listing.address}}</li>
       <li class="big-font">{{listing.bedbaths}}</li>
       <li class="big-font">Size: {{listing.sqft}} sqft</li>
-      {{!-- <li class="description"><p>{{listing.description}}</p></li> --}}
+      <li class="description"><p>{{listing.description}}</p></li>
     </ul>
   </section>
   <section class="listing-story">

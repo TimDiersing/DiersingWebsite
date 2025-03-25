@@ -30,7 +30,6 @@
 
 /*_______LISTING CARD________*/
 .listing-card {
-    width: clamp(375px, 15vw, 600px);
     aspect-ratio: 1 / 1.1;
     background-color: #FFFFFF;
     display: flex;
@@ -87,6 +86,10 @@
 
 /*_______SOLD CARD EDITS______*/
 
+.listing-grid .sold{
+    aspect-ratio: 1 / 1.5;
+}
+
 .listing-grid .sold p {
     margin: 0 10px 10px 10px;
     font-family: "Afacad", serif;
@@ -101,24 +104,24 @@
     background-color: #F2F1EC; 
     box-shadow: 4px 4px 4px #00000040;
     display: grid;
-    grid-template-columns: repeat(auto-fit, clamp(375px, 15vw, 600px));
+    grid-template-columns: repeat(auto-fit, clamp(375px, 18vw, 600px));
+    justify-content: center;
     gap: 16px;
 }
 
 /*_______LISTING PAGE________*/
-.listing-container {
+.listing-page {
     background-color: #BECBD2;
+    padding: 2rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-areas: 
-        "back back" 
-        "images desc"
+    grid-template-areas:
+        "back back"
+        "images details"
         "story story";
-    gap: 1.5rem;
-    padding: 2rem;
 }
 
-.listing-container .back-btn {
+.listing-page .back-btn {
     grid-area: back;
     display: inline-flex;
     align-items: center;
@@ -126,17 +129,17 @@
     color: #000000;
 }
 
-.listing-container .listing-images {
+.listing-page .listing-images {
     grid-area: images;
 }
 
-.listing-container .listing-details {
-    grid-area: desc;
+.listing-page .listing-details {
+    grid-area: details;
     background-color: #F2F1EC;
     box-shadow: 4px 4px 4px #00000040;
 }
 
-.listing-container .listing-details ul {
+.listing-page .listing-details ul {
     list-style: none;
     list-style-position: outside;
     text-align: center;
@@ -152,18 +155,19 @@
     font-size: 38px;
 }
 
-.listing-container .listing-story {
-    grid-area: story;
-}
-
-.listing-container .description {
+.listing-page .description {
     font-family: "Afacad", serif;
     font-size: 19px;
     text-align: left;
     text-indent: 3rem;
+    overflow-y: hidden;
 }
 
-.listing-container .listing-story p {
+.listing-page .listing-story {
+    grid-area: story;
+}
+
+.listing-page .listing-story p {
     background-color: #F2F1EC;
     box-shadow: 4px 4px 4px #00000040;
     padding: 1rem;
@@ -173,7 +177,7 @@
 }
 
 @media (max-width: 1200px) {
-    .listing-container {
+    .listing-page {
         grid-template-areas:
             "back back"
             "images images"

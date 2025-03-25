@@ -98,13 +98,13 @@ app.get('/', async (req, res) => {
 });
 
 // Sold Homes route
-app.get('/soldHomes', async (req, res) => {
+app.get('/sold-homes', async (req, res) => {
   let client;
   try {
     client = await pool.connect();
     const soldHomes = await client.query('SELECT * FROM listings WHERE type = $1', ['sold']);
-    res.render('soldHomes', {
-      pageTitle: 'soldHomes',
+    res.render('sold-homes', {
+      pageTitle: 'Previous Sales - ' + res.locals.fullName,
       soldListings: soldHomes.rows
     });
 
@@ -125,12 +125,20 @@ app.get('/listing/:id', async (req, res) => {
   let client;
   try {
     client = await pool.connect();
-    const listing = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);
-
-    res.render('listing', {
-      pageTitle: listing.rows[0].title,
-      listing: listing.rows[0],
-    });
+    let listing = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);
+    listing = listing.rows[0];
+    listing.price = listing.price.substring(0, listing.price.length - 3);
+    if (listing.type === 'sold') {
+      res.render('sold-listing', {
+        pageTitle: listing.title,
+        listing: listing,
+      });
+    } else {
+      res.render('listing', {
+        pageTitle: listing.address,
+        listing: listing,
+      });
+    }
 
   } catch (err) {
     console.error('Error fetching listing', err);
@@ -150,7 +158,7 @@ app.get('/profile', async (req, res) => {
     client = await pool.connect();
     const dbData = await client.query('SELECT * FROM testimonials');
     res.render('profile', {
-      pageTitle: 'Profile - Bob Diersing',
+      pageTitle: 'Profile - ' + res.locals.fullName,
       testimonials: dbData.rows,
     });
   } catch (err) {
@@ -172,7 +180,7 @@ app.get('/testimonials', async (req, res) => {
     client = await pool.connect();
     const dbData = await client.query('SELECT * FROM testimonials');
     res.render('testimonials', {
-      pageTitle: 'Testimonals - Bob Diersing',
+      pageTitle: 'Testimonals - ' + res.locals.fullName,
       testimonials: dbData.rows
     })
   } catch (err) {
@@ -196,7 +204,7 @@ app.get('/contact', (req, res) => {
   const errorKey = req.query.error;
   const error = errorMessages[errorKey];
   res.render('contact', {
-    pageTitle: 'Contact - Bob Diersing',
+    pageTitle: 'Contact - ' + res.locals.fullName,
     error: error,
     userFName: req.query.user_fname,
     userLName: req.query.user_lname,
@@ -206,6 +214,7 @@ app.get('/contact', (req, res) => {
   });
 }); 
 
+// Contact post route for sending email
 app.post('/contact', async (req, res) => {
   const { fname, lname, email, phone, message, 'g-recaptcha-response': token} = req.body;
   if (!token) {
@@ -253,15 +262,15 @@ app.post('/contact', async (req, res) => {
 
 // Thank you route
 app.get('/thank-you', (req, res) => {
-  res.render('thankYou', {
-    pageTitle: 'Thank You - Bob Diersing'
+  res.render('thank-you', {
+    pageTitle: 'Thank You - ' + res.locals.fullName,
   });
 });
 
 // Privacy Policy route
 app.get('/privacy-policy', (req, res) => {
-  res.render('privacyPolicy', {
-    pageTitle: 'Privacy Policy - Bob Diersing'
+  res.render('privacy-policy', {
+    pageTitle: 'Privacy Policy - ' + res.locals.fullName,
   });
 });
 
