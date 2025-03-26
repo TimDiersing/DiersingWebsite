@@ -4,7 +4,9 @@
     </div>
     <div class="image-holder">
         {{#each images}}
-            <img height="682" width="1024" src="/{{this}}" alt="House" class="listing-image"/>
+            <div class="carousel-item">
+                <img src="/{{this}}" alt="House"/>
+            </div>
         {{/each}}
     </div>
     <div class="next-btn">

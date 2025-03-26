@@ -1,20 +1,40 @@
 <article class="listing-page">
   <a class="back-btn" href="/"><span class="material-symbols-outlined">chevron_left</span>Back</a>
-  <section class="listing-images">
-    {{> image-carousel images=listing.images }}
+  <div class="horizontal-flex">
+    <section class="listing-images">
+      {{> image-carousel images=listing.images }}
+    </section>
+    <div class="aside-flex">
+      <section class="listing-details">
+        <ul>
+          <li class="price"><span id="for-sale"><span id="green-dot"></span>For Sale</span> {{listing.price}}</li>
+          <li class="big-font">{{listing.address}}</li>
+          <li class="big-font">Beds: {{listing.beds}} | Baths: {{listing.baths}}</li>
+          <li class="big-font">Size: {{listing.sqft}} sqft</li>
+        </ul>
+      </section>
+      <button type="button" id="tour-open-button" onclick="openTourPopup()">Book a Tour</button>
+    </div>
+  </div>
+  <p id="listing-description"> {{listing.description}} </p>
+  <button type="button" onclick="readMore()">Read More</button>
+  <section id="tour-popup">
+    <button type="button" id="tour-close-button" onclick="closeTourPopup()">close</button>
   </section>
-  <section class="listing-details">
-    <ul>
-      <li class="big-font">Sold For:</li>
-      <li class="price">{{listing.price}}</li>
-      <li class="big-font">{{listing.address}}</li>
-      <li class="big-font">{{listing.bedbaths}}</li>
-      <li class="big-font">Size: {{listing.sqft}} sqft</li>
-      {{!-- <li class="description"><p>{{listing.description}}</p></li> --}}
-    </ul>
-  </section>
-  <section class="listing-story">
-    <h2>He we came out on top</h2>
-    <p>{{listing.story}}</p>
-  </section>
+
+  {{> contact-partial heroText="Want to know more?"}}
 </article>
+
+<script>
+  function openTourPopup() {
+    document.getElementById("tour-popup").style.display = "block";
+  }
+
+  function closeTourPopup() {
+    document.getElementById("tour-popup").style.display = "none";
+  }
+
+  function readMore() {
+    document.getElementById("listing-description").classList.add("open");
+  }
+</script>

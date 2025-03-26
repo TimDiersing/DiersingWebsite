@@ -10,7 +10,8 @@
 
 /*________IMAGE CAROUSEL________*/
 .image-carousel {
-    max-width: 100vw;
+    width: 100%;
+    height: auto;
     position: relative;
     display: flex;
     align-items: center;
@@ -21,23 +22,37 @@
 }
 
 .image-holder {
+    flex-basis: 90%;
     display: flex;
     overflow-x: hidden;
     scroll-snap-type: x mandatory;
 }
 
-.image-holder img {
+.image-holder .carousel-item {
     flex: 0 0 100%;
-    min-width: 256px;
-    height: auto;
     aspect-ratio: 16 / 9;
     scroll-snap-align: start;
+    overflow: hidden;
+}
+
+.image-holder img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .image-number {
     position: absolute;
-    bottom: 0;
-    right: 65px;
+    padding: 0.1rem 0.2rem;
+    bottom: 8%;
+    right: 7%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 4px;
 }
 
 .image-carousel .next-btn, .image-carousel .prev-btn {
