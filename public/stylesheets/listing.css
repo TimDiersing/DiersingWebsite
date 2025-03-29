@@ -224,15 +224,51 @@
     height: 50vh !important;
 }
 
+/* _________TOUR POPUP_________ */
 .listing-page #tour-popup {
     position: fixed;
-    width: 80vw;
-    height: 85vh;
-    top: 10vh;
-    left: 10vw;
-    background-color: #000000;
-    z-index: 5;
+    max-height: 90vh;
+    top: 7vh;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.4);
+    border-radius: 5px;
+    z-index: 11;
     display: none;
+    overflow-y: auto;
+}
+
+#tour-popup .top-bar {
+    width: 100%;
+    background-color: #365B6D;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#tour-close-button {
+    background-color: #365B6D;
+    border: none;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.tour-form-section {
+    margin: 20px;
+}
+
+.tour-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(max-content, 3rem);
+    gap: 1rem;
+}
+
+.tour-form .message {
+    grid-row-end: span 2;
+    grid-column-end: span 2;
 }
 
 /* ______SOLD LISTING PAGE_____ */

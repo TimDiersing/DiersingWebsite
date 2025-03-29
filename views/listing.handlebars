@@ -19,7 +19,28 @@
   <p id="listing-description"> {{listing.description}} </p>
   <button type="button" onclick="readMore()">Read More</button>
   <section id="tour-popup">
-    <button type="button" id="tour-close-button" onclick="closeTourPopup()">close</button>
+    <div class="top-bar">
+      <button type="button" id="tour-close-button" onclick="closeTourPopup()"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e8eaed"><path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z"/></svg></button>
+    </div>
+    <section class="tour-form-section">
+      <h3>Book a Tour</h3>
+      {{#if error}}
+          <div class="error-message">{{error}}</div>
+      {{/if}}
+      <form class="tour-form" action="/book-tour" method="post">
+          <input type="text" name="fname" class="fname text-box" placeholder="First Name *" value="{{userFName}}" required>
+          <input type="text" name="lname" class="lname text-box" placeholder="Last Name *" value="{{userLName}}" required>
+          <input type="text" name="email" class="email text-box" placeholder="Email *" value="{{userEmail}}" required>
+          <input type="text" name="phone" class="phone text-box" placeholder="Phone *" value="{{userPhone}}" required>
+          <input type="text" name="message" class="message text-box" placeholder="Message *" value="{{userMessage}}">
+          <button type="submit" class="general-button submit-button">Submit</button>
+          <div class="cap g-recaptcha" data-sitekey="6Lfew_EqAAAAAFaYEM6qd_FpYEDOMJayeNjHL0RC"></div>
+      </form>
+      <p>
+          By submitting this form, you consent to Bob Diersing collecting you information via text and/or email.
+          <a href="/privacy-policy" target="_blank">PRIVACY POLICY</a>
+      </p>
+    </section>
   </section>
 
   {{> contact-partial heroText="Want to know more?"}}
