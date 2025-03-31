@@ -128,15 +128,40 @@ app.get('/listing/:id', async (req, res) => {
     let listing = await client.query('SELECT * FROM listings WHERE id = $1', [req.params.id]);
     listing = listing.rows[0];
     listing.price = listing.price.substring(0, listing.price.length - 3);
+
     if (listing.type === 'sold') {
       res.render('sold-listing', {
         pageTitle: listing.title,
         listing: listing,
       });
-    } else {
+
+    } else { //Active listing
+
+      // Get error message if error
+      const errorMessages = {
+        captcha_failed: 'CAPTCHA verification failed. Please try again.',
+        missing_token: 'Please complete the CAPTCHA.',
+        server_error: 'Server error. Please try again later.',
+      };
+      const errorKey = req.query.error;
+      const error = errorMessages[errorKey];
+
+      const preMessage = `Hello Bob, I'd like to schedule a tour of your listing at ${listing.short_address}...`;
+
+      console.log(req.query.user_message);
+      const formInfo = {
+        fname: req.query.user_fname,
+        lname: req.query.user_lname,
+        email: req.query.user_email,
+        phone: req.query.user_phone,
+        message: req.query.user_message || preMessage,
+      };
+
       res.render('listing', {
         pageTitle: listing.address,
         listing: listing,
+        formInfo: formInfo,
+        error: error,
       });
     }
 
@@ -148,6 +173,54 @@ app.get('/listing/:id', async (req, res) => {
     if (client) {
       client.release();
     }
+  }
+});
+
+// Post route for booking a tour
+app.post('/book-tour', async (req, res) => {
+  const { fname, lname, email, phone, message, 'g-recaptcha-response': token} = req.body;
+  const bookId = req.query.id;
+
+  if (!token) {
+    return res.redirect(`/listing/${bookId}?error=missing_token&user_fname=${encodeURIComponent(fname)}&user_lname=${encodeURIComponent(lname)}&user_email=${encodeURIComponent(email)}&user_phone=${encodeURIComponent(phone)}&user_message=${encodeURIComponent(message)}`);
+  }
+
+  const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify`,
+    new URLSearchParams({
+      secret: process.env.CAP_SECRET,
+      response: token,
+    })
+  );
+  
+  const {success, 'error-codes': capErrors } = response.data;
+  if (success == true) {
+      try {
+        const transport = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          }
+        });
+    
+        const info = await transport.sendMail({
+          from: process.env.EMAIL_USER,
+          to: process.env.EMAIL_SEND,
+          subject: "Message from website (Book tour)",
+          html: "<br>First Name: " + fname + "<br>Last Name: " + lname +
+                "<br>Email: " + email +
+                "<br>Phone: " + phone +
+                "<br>Message: " + message,
+        })
+        console.log('Email sent');
+        res.redirect('/thank-you');
+      } catch (err) {
+        console.log('Email failed to send');
+        res.status(500).send(err);
+      }
+  } else {
+    console.error('reCatcha error', capErrors);
+    res.redirect(`/listing/${bookId}?error=captcha_failed&user_fname=${encodeURIComponent(fname)}&user_lname=${encodeURIComponent(lname)}&user_email=${encodeURIComponent(email)}&user_phone=${encodeURIComponent(phone)}&user_message=${encodeURIComponent(message)}`);
   }
 });
 

@@ -228,15 +228,20 @@
 .listing-page #tour-popup {
     position: fixed;
     max-height: 90vh;
+    width: clamp(375px, 50vw, 1000vw);
     top: 7vh;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.224);
     backdrop-filter: blur(4px);
-    box-shadow: 4px 4px 4px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
     border-radius: 5px;
     z-index: 11;
-    display: none;
     overflow-y: auto;
+    display: none;
+}
+
+.listing-page .open-tour {
+    display: block !important;
 }
 
 #tour-popup .top-bar {
@@ -245,6 +250,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+#tour-popup .error-message {
+    color: red;
 }
 
 #tour-close-button {
@@ -260,15 +269,70 @@
 }
 
 .tour-form {
+    margin: 1rem 0; 
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: minmax(max-content, 3rem);
     gap: 1rem;
 }
 
+.tour-form input[type=text] {
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 1px solid rgb(60, 60, 60);
+    font-family: "Afacad", serif;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s ease-out;
+}
+
+.tour-form input[type=text]:focus {
+    border-radius: 0;
+    border: 1.8px solid rgb(60, 60, 60);
+}
+
+.tour-form textarea {
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 1px solid rgb(60, 60, 60);
+    padding: 12px;
+    font-family: "Afacad", serif;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s ease-out;
+}
+
+.tour-form textarea:focus {
+    border-radius: 0;
+    border: 1.8px solid rgb(60, 60, 60);
+}
+
 .tour-form .message {
     grid-row-end: span 2;
     grid-column-end: span 2;
+}
+
+.tour-form .submit-button {
+    border: none;
+    font-family: "Aboreto", serif;
+    font-size: clamp(1rem, 2vw, 3rem);
+    background-color: #365B6D;
+    color: #F2F1EC;
+}
+
+@media (max-width: 1250px) {
+    .tour-form {
+        grid-template-columns: 1fr;
+    }
+
+    .tour-form .message {
+        grid-column-end: span 1;
+    }
+
+    .tour-form .cap {
+        grid-row-start: 7;
+    }
 }
 
 /* ______SOLD LISTING PAGE_____ */

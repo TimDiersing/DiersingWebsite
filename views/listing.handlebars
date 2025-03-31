@@ -18,7 +18,7 @@
   </div>
   <p id="listing-description"> {{listing.description}} </p>
   <button type="button" onclick="readMore()">Read More</button>
-  <section id="tour-popup">
+  <section id="tour-popup" {{#if error}}class="open-tour"{{/if}}>
     <div class="top-bar">
       <button type="button" id="tour-close-button" onclick="closeTourPopup()"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e8eaed"><path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z"/></svg></button>
     </div>
@@ -27,13 +27,13 @@
       {{#if error}}
           <div class="error-message">{{error}}</div>
       {{/if}}
-      <form class="tour-form" action="/book-tour" method="post">
-          <input type="text" name="fname" class="fname text-box" placeholder="First Name *" value="{{userFName}}" required>
-          <input type="text" name="lname" class="lname text-box" placeholder="Last Name *" value="{{userLName}}" required>
-          <input type="text" name="email" class="email text-box" placeholder="Email *" value="{{userEmail}}" required>
-          <input type="text" name="phone" class="phone text-box" placeholder="Phone *" value="{{userPhone}}" required>
-          <input type="text" name="message" class="message text-box" placeholder="Message *" value="{{userMessage}}">
-          <button type="submit" class="general-button submit-button">Submit</button>
+      <form class="tour-form" action="/book-tour?id={{listing.id}}" method="post">
+          <input type="text" name="fname" class="fname text-box" placeholder="First Name *" value="{{formInfo.fname}}" required>
+          <input type="text" name="lname" class="lname text-box" placeholder="Last Name *" value="{{formInfo.lname}}" required>
+          <input type="text" name="email" class="email text-box" placeholder="Email *" value="{{formInfo.email}}" {{#unless formInfo.phone}}required{{/unless}}>
+          <input type="text" name="phone" class="phone text-box" placeholder="Phone *" value="{{formInfo.phone}}" {{#unless formInfo.email}}required{{/unless}}>
+          <textarea name="message" class="message text-box" placeholder="Message *">{{formInfo.message}}</textarea>
+          <button type="submit" class="submit-button">Submit</button>
           <div class="cap g-recaptcha" data-sitekey="6Lfew_EqAAAAAFaYEM6qd_FpYEDOMJayeNjHL0RC"></div>
       </form>
       <p>
@@ -48,14 +48,28 @@
 
 <script>
   function openTourPopup() {
-    document.getElementById("tour-popup").style.display = "block";
+    document.getElementById("tour-popup").classList.add("open-tour");
   }
 
   function closeTourPopup() {
-    document.getElementById("tour-popup").style.display = "none";
+    document.getElementById("tour-popup").classList.remove("open-tour");
   }
 
   function readMore() {
     document.getElementById("listing-description").classList.add("open");
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+        const inputs = Array.from(
+            document.querySelectorAll('input[name=email], input[name=phone]')
+        );
+
+        const inputListener = e => {
+            inputs
+            .filter(i => i !== e.target)
+            .forEach(i => (i.required = !e.target.value.length));
+        };
+
+        inputs.forEach(i => i.addEventListener('input', inputListener));
+    });
 </script>
