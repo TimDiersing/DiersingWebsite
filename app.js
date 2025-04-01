@@ -9,6 +9,8 @@ const nodemailer = require('nodemailer');
 const favicon = require('serve-favicon');
 const fs = require('fs');
 const axios = require('axios');
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { createGzip } = require('zlib');
 require('dotenv').config();
  
 const app = express();
@@ -56,6 +58,33 @@ app.use(session({
 }));
 
 // ROUTES
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    res.header('Content-Type', 'application/xml');
+    res.header('Content-Encoding', 'gzip');
+
+    // Create a stream to write to
+    const hostname = req.protocol + '://' + req.get('host');
+    const sitemapStream = new SitemapStream({ hostname });
+    const pipeline = sitemapStream.pipe(createGzip());
+
+    // Add your URLs here. You can generate these dynamically.
+    sitemapStream.write({ url: '/', changefreq: 'daily', priority: 1.0 });
+    sitemapStream.write({ url: '/contact', changefreq: 'monthly', priority: 0.8 });
+
+    // End the stream
+    sitemapStream.end();
+
+    // Stream the response
+    pipeline.pipe(res).on('error', (err) => {
+      throw err;
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).end();
+  }
+});
+
 // Home route
 app.get('/', async (req, res) => {
   let client;
