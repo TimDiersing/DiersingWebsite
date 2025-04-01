@@ -25,6 +25,7 @@
     "nodemailer": "^6.10.0",
     "pg": "^8.13.1",
     "serve-favicon": "^2.5.0",
+    "sitemap": "^8.0.0",
     "slick-carousel": "^1.8.1",
     "sqlite3": "^5.1.7"
   },
