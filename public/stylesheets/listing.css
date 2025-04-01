@@ -246,6 +246,7 @@
 
 .listing-page #read-more-button {
     align-self: flex-start;
+    text-decoration: underline;
     border: none;
     color: #365B6D;
     font-family: "Afacad", serif;
@@ -349,6 +350,17 @@
     color: #F2F1EC;
 }
 
+/* ______SOLD LISTING PAGE_____ */
+.sold-listing-page .listing-story{
+    background-color: #F2E0C3;
+    padding: 1rem;
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.4);
+}
+
+.sold-listing-page .listing-story p {
+    font-family: "Afacad", serif;
+}
+
 @media (max-width: 1250px) {
     .tour-form {
         grid-template-columns: 1fr;
@@ -368,17 +380,3 @@
     }
 }
 
-/* ______SOLD LISTING PAGE_____ */
-
-.listing-page .listing-story {
-    grid-area: story;
-}
-
-.listing-page .listing-story p {
-    background-color: #F2F1EC;
-    box-shadow: 4px 4px 4px #00000040;
-    padding: 1rem;
-    font-family: "Afacad", serif;
-    font-size: 19px;
-    text-indent: 3rem;
-}

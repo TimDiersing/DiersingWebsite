@@ -1,20 +1,41 @@
-<article class="listing-container">
-  <a class="back-btn" href="/sold-homes"><span class="material-symbols-outlined">chevron_left</span>Back to previous sales</a>
-  <section class="listing-images">
-    {{> image-carousel images=listing.images }}
-  </section>
-  <section class="listing-details">
-    <ul>
-      <li class="big-font">Sold For:</li>
-      <li class="price">{{listing.price}}</li>
-      <li class="big-font">{{listing.address}}</li>
-      <li class="big-font">{{listing.bedbaths}}</li>
-      <li class="big-font">Size: {{listing.sqft}} sqft</li>
-      <li class="description"><p>{{listing.description}}</p></li>
-    </ul>
-  </section>
+<article class="listing-page sold-listing-page">
+  <a class="back-btn" href="/"><span class="material-symbols-outlined">chevron_left</span>Back</a>
+  <div class="horizontal-flex">
+    <section class="listing-images">
+      {{> image-carousel images=listing.images }}
+    </section>
+    <div class="aside-flex">
+      <section class="listing-details">
+        <ul>
+          <li class="price"><span id="for-sale"><span id="green-dot"></span>Sold</span> {{listing.price}}</li>
+          <li class="address">{{listing.address}}</li>
+          <li class="beds-baths">Beds: {{listing.beds}} | Baths: {{listing.baths}}</li>
+          <li class="size">Size: {{listing.sqft}} sqft</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <p id="listing-description"> {{listing.description}} </p>
+  <button id="read-more-button" type="button" onclick="toggleReadMore()">Read More</button>
+
   <section class="listing-story">
-    <h2>He we came out on top</h2>
+    <h1>How we came out on top</h1>
     <p>{{listing.story}}</p>
   </section>
+
 </article>
+{{> contact-partial heroText="Want to know more?"}}
+
+<script>
+  function toggleReadMore() {
+    const listingDesc = document.getElementById("listing-description");
+
+    if (listingDesc.classList.contains('open')) {
+      listingDesc.classList.remove('open');
+      document.getElementById("read-more-button").innerHTML = "Read More";
+    } else {
+      listingDesc.classList.add('open');
+      document.getElementById("read-more-button").innerHTML = "Read Less";
+    }
+  }
+</script>
