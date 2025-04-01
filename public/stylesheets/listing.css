@@ -111,13 +111,24 @@
 
 /*_______LISTING PAGE________*/
 .listing-page {
-    background-color: #BECBD2;
+    background-color: #F2F1EC;
     width: 80%;
     padding: 4vh 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+}
+
+.listing-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    background-color: #BECBD2;
+    z-index: -1;
 }
 
 .listing-page .back-btn {
@@ -165,14 +176,11 @@
     padding: 1rem;
     margin: 0;
 }
-.listing-details .big-font {
-    font-family: "Afacad", serif;
-    font-size: 22px;
-}
 .listing-details #for-sale {
     color: rgb(53, 104, 51);
     font-size: 1rem;
     font-weight: 600;
+    text-wrap: nowrap;
     display: inline-flex;
     align-items: center;
 }
@@ -190,6 +198,21 @@
     align-items: center;
     justify-content: space-evenly;
     font-size: 38px;
+}
+.listing-details .address {
+    font-family: "Afacad", serif;
+    font-size: clamp(1rem, 1.5vw, 4rem);
+    margin-bottom: 1rem;
+}
+
+.listing-details .beds-baths {
+    font-family: "Aboreto", serif;
+    font-size: clamp(0.8rem, 1.2vw, 3.5rem);
+}
+
+.listing-details .size {
+    font-family: "Aboreto", serif;
+    font-size: clamp(0.8rem, 1.2vw, 3.5rem);
 }
 
 .listing-page #tour-open-button {
@@ -212,23 +235,28 @@
 .listing-page #listing-description {
     font-family: "Afacad", serif;
     text-indent: 2rem;
-    margin-top: 2rem;
-    padding: 1rem 2rem;
     height: 10vh;
     background-color: #F2F1EC;
     overflow-y: hidden;
 }
 
-
 .listing-page .open {
-    height: 50vh !important;
+    height: max-content !important;
+}
+
+.listing-page #read-more-button {
+    align-self: flex-start;
+    border: none;
+    color: #365B6D;
+    font-family: "Afacad", serif;
+    font-size: 1rem;
 }
 
 /* _________TOUR POPUP_________ */
 .listing-page #tour-popup {
     position: fixed;
     max-height: 90vh;
-    width: clamp(375px, 50vw, 1000vw);
+    width: clamp(340px, 50vw, 1000vw);
     top: 7vh;
     margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.224);
@@ -332,6 +360,11 @@
 
     .tour-form .cap {
         grid-row-start: 7;
+    }
+    .listing-page .horizontal-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 }
 

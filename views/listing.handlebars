@@ -8,16 +8,16 @@
       <section class="listing-details">
         <ul>
           <li class="price"><span id="for-sale"><span id="green-dot"></span>For Sale</span> {{listing.price}}</li>
-          <li class="big-font">{{listing.address}}</li>
-          <li class="big-font">Beds: {{listing.beds}} | Baths: {{listing.baths}}</li>
-          <li class="big-font">Size: {{listing.sqft}} sqft</li>
+          <li class="address">{{listing.address}}</li>
+          <li class="beds-baths">Beds: {{listing.beds}} | Baths: {{listing.baths}}</li>
+          <li class="size">Size: {{listing.sqft}} sqft</li>
         </ul>
       </section>
       <button type="button" id="tour-open-button" onclick="openTourPopup()">Book a Tour</button>
     </div>
   </div>
   <p id="listing-description"> {{listing.description}} </p>
-  <button type="button" onclick="readMore()">Read More</button>
+  <button id="read-more-button" type="button" onclick="toggleReadMore()">Read More</button>
   <section id="tour-popup" {{#if error}}class="open-tour"{{/if}}>
     <div class="top-bar">
       <button type="button" id="tour-close-button" onclick="closeTourPopup()"><svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#e8eaed"><path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z"/></svg></button>
@@ -43,8 +43,8 @@
     </section>
   </section>
 
-  {{> contact-partial heroText="Want to know more?"}}
 </article>
+{{> contact-partial heroText="Want to know more?"}}
 
 <script>
   function openTourPopup() {
@@ -55,8 +55,16 @@
     document.getElementById("tour-popup").classList.remove("open-tour");
   }
 
-  function readMore() {
-    document.getElementById("listing-description").classList.add("open");
+  function toggleReadMore() {
+    const listingDesc = document.getElementById("listing-description");
+
+    if (listingDesc.classList.contains('open')) {
+      listingDesc.classList.remove('open');
+      document.getElementById("read-more-button").innerHTML = "Read More";
+    } else {
+      listingDesc.classList.add('open');
+      document.getElementById("read-more-button").innerHTML = "Read Less";
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function() {

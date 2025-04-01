@@ -148,7 +148,6 @@ app.get('/listing/:id', async (req, res) => {
 
       const preMessage = `Hello Bob, I'd like to schedule a tour of your listing at ${listing.short_address}...`;
 
-      console.log(req.query.user_message);
       const formInfo = {
         fname: req.query.user_fname,
         lname: req.query.user_lname,
