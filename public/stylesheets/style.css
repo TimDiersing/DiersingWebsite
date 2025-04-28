@@ -61,32 +61,37 @@ body {
 
 .hero-text {
   position: absolute;
-  top: 30vh;
-  width: 100%;
-  text-align: center;
+  top: 50vh;
+  right: 6vw;
+  text-align: right;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 3vh;
 }
 
 .hero-text h1 {
-  font-size: clamp(2rem, 5vw, 5rem);
+  font-size: clamp(2rem, 7vw, 5rem);
   font-weight: 400;
 }
 .hero-text p {
   margin-top: 5vh;
-  font-size: clamp(1rem, 1.6vw, 3rem);
+  font-size: clamp(1rem, 2vw, 3rem);
   font-weight: 400;
 }
 .hero-text a {
-  background-color: #264653;
+  background-color: rgb(69, 69, 69);
   padding: 10px 20px;
   font-family: "Aboreto", serif;
   text-decoration: none;
   color:#f2f1ec;
-
   font-size: clamp(1rem, 1.6, 3rem);
+
+  transition: ease-out 0.1s;
+}
+.hero-text a:hover {
+  translate: 0 -3px;
+  box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
 }
 
 .scroll-icon {
@@ -214,10 +219,6 @@ body {
   height: 80vh;
 }
 /* _______MEDIA QUEREYS_____*/
-@media (max-width: 2000px) {
-  
-}
-
 @media (max-width: 1024px) {
   .hero-header {
     font-size: 60px;
@@ -240,6 +241,16 @@ body {
   }
   .bio-contact-card p {
     font-size: 12px;
+  }
+}
+
+@media(max-width: 940px) {
+  .hero-text {
+    align-items: center;
+    top: 30vh;
+    text-align: center;
+    width: 100%;
+    right: 0;
   }
 }
 
