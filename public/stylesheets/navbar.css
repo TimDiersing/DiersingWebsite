@@ -1,8 +1,15 @@
 .navbar {
-  background-color: #365B6D;
+  background-image: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,0));
   position: relative;
+  top: 0;
+  width: 100%;
   z-index: 9;
 }
+
+.navbar-home {
+  position: absolute !important;
+}
+
 .navbar ul {
   width: 100%;
   display: flex;
@@ -10,7 +17,7 @@
   list-style: none;
 }
 .navbar li {
-  height: 60px;
+  height: 80px;
 }
 .navbar .logo {
   margin-right: 10px;

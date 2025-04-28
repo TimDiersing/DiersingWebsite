@@ -37,25 +37,26 @@ body {
 
 
 /* ________HERO SECTION________ */
+
 .hero {
   position: relative;
+  top: 0;
   width: 100%;
   color: #f2f1ec;
-  font-size: 16px;
   text-shadow: 3px 3px 3px #15232a;
   text-align: center;
-  position: static;
   padding: 0;
   margin: 0;
   overflow: hidden;
+  height: 100vh;
 }
 
 .hero video {
   object-fit: cover;
   object-position: center;
   z-index: 0;
+  height: 100%;
   width: 100%;
-  height: 100vh;
 }
 
 .hero-text {
@@ -63,10 +64,14 @@ body {
   top: 30vh;
   width: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
 }
 
 .hero-text h1 {
-  font-size: clamp(2rem, 5vw, 6rem);
+  font-size: clamp(2rem, 5vw, 5rem);
   font-weight: 400;
 }
 .hero-text p {
@@ -74,20 +79,46 @@ body {
   font-size: clamp(1rem, 1.6vw, 3rem);
   font-weight: 400;
 }
+.hero-text a {
+  background-color: #264653;
+  padding: 10px 20px;
+  font-family: "Aboreto", serif;
+  text-decoration: none;
+  color:#f2f1ec;
+
+  font-size: clamp(1rem, 1.6, 3rem);
+}
 
 .scroll-icon {
   position: absolute;
+  background-image: linear-gradient(rgb(255,255,255) 30%, rgb(0,0,0), rgb(255,255,255) 70%);
+  background-size: 100% 400%;
+  background-clip: text;
   bottom: 8px;
   width: 100%;
   text-align: center;
+
+  animation-name: slideColor;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 .scroll-text {
   margin: 0;
-  color:#f2f1ec;
-  font-family: "Italiana", serif;
+  color: transparent;
   font-size: 22px;
   font-weight: 400;
+}
+
+@keyframes slideColor {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 0% 100%;
+  }
 }
 
 /* ___________________________ */
