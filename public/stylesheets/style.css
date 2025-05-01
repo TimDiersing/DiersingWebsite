@@ -33,6 +33,13 @@ body {
   font-style: normal;
 }
 
+.hanken {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
 /* ___________________________ */
 
 
@@ -130,60 +137,35 @@ body {
 
 /* ________BIO SECTION________ */
 .bio-section {
-  margin: 0;
-  padding: 10vh 0;
-  width: auto;
-  background-color: #f2f1ec;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
-}
+  align-items: center;
+  padding: 10vh 0;
 
-.bio-section a {
-  text-decoration: none;
-  color: #15232a;
+  background-color: #f2f1ec;
 }
 
 .bio-section .left-side {
-  flex-basis: 40%;
+  width: 40vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  gap: 2rem;
+  font-size: 1.5rem;
 }
 
-.bio-section .left-side p {
-  font-family: "Afacad", serif;
-  font-size: 22px;
-  font-weight: 400;
-}
 .bio-section .bio-button {
-  align-self: flex-end;
-  background-color: #264653;
-  padding: 8px 12px;
-  border: .1rem solid #15232a;
-  color: #f2f1ec;
+  background-color: #BECBD2;
+  text-decoration: none;
+  color: #000000;
+  text-align: center;
+  padding: 1rem 0;
+
+  transition: 0.2s ease-out;
 }
 
-.bio-contact-card {
-  background-color: #f7f7f7;
-  box-shadow: 3px 3px 3px #15232a;
-  height: 450px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-}
-
-.bio-img {
-  width: 380px;
-}
-
-.bio-contact-card p {
-  font-size: 16px;
-  font-weight: 500;
-  margin: 8px 0;
+.bio-section .bio-button:hover {
+  translate: 0 -0.2rem;
+  box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
 }
 /* ____________________________ */
 
@@ -230,17 +212,16 @@ body {
   .bio-section {
     flex-direction: column-reverse;
     justify-content: flex-end;
+    padding: 3vh 0;
   }
 
   .bio-section .left-side {
     padding: 5vh 3vw;
+    width: 90vw;
   }
-  .bio-text{
-    font-size: 12px;
-    flex-basis: auto;
-  }
-  .bio-contact-card p {
-    font-size: 12px;
+
+  .bio-section img {
+    width: 90vw;
   }
 }
 
