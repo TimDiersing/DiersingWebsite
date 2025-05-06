@@ -153,6 +153,11 @@ body {
   font-size: 1.5rem;
 }
 
+.bio-section .left-side ul {
+  list-style-type: square;
+  margin-left: 2rem;
+}
+
 .bio-section .bio-button {
   background-color: #BECBD2;
   text-decoration: none;
